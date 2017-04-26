@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Flying Piiizza</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_gerichte">GerichteActivity</string>
+    <string name="title_activity_dish">DishActivity</string>
+    <string name="title_activity_impressum">ImpressumActivity</string>
+</resources>
