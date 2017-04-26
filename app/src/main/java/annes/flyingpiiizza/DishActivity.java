@@ -1,5 +1,6 @@
 package annes.flyingpiiizza;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.widget.Button;
 public class DishActivity extends AppCompatActivity {
 
     Button zurück;
+    Button impressum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,11 +22,20 @@ public class DishActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         zurück = (Button) findViewById(R.id.buttonBack);
+        impressum = (Button) findViewById(R.id.buttonImpressum);
 
         zurück.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        impressum.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DishActivity.this, ImpressumActivity.class);
+                startActivity(intent);
             }
         });
     }
