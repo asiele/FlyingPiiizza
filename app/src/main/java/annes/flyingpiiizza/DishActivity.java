@@ -13,6 +13,7 @@ public class DishActivity extends AppCompatActivity {
 
     Button zurück;
     Button impressum;
+    Button newDish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +31,20 @@ public class DishActivity extends AppCompatActivity {
                 finish();
             }
         });
+        newDish = (Button) findViewById(R.id.buttonNewDish);
 
         impressum.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DishActivity.this, ImpressumActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        newDish.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DishActivity.this, CreateDishActivity.class);
                 startActivity(intent);
             }
         });

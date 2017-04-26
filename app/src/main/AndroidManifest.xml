@@ -26,6 +26,10 @@
         <activity
             android:name=".ImpressumActivity"
             android:label="@string/title_activity_impressum"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateDishActivity"
+            android:label="@string/title_activity_create_dish"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
