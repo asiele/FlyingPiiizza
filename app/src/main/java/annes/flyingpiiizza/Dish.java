@@ -17,7 +17,7 @@ public class Dish {
 
     }
 
-    public Dish(int price, List<String> ingredients, String name, String description) {
+    public Dish(String name, String description, int price, List<String> ingredients) {
         this.price = price;
         this.ingredients = ingredients;
         this.name = name;
@@ -44,6 +44,8 @@ public class Dish {
         this.description = description;
     }
 
+    public void setIngredients(List<String> ingredients)  { this.ingredients = ingredients; }
+
     public String getDescription() {
         return description;
     }
@@ -59,5 +61,9 @@ public class Dish {
         } else {
             return false;
         }
+    }
+
+    public String toString() {
+        return "\nName: " + name + "Beschreibung: " + description + "\nPrice: " + price;
     }
 }
