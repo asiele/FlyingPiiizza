@@ -64,6 +64,11 @@ public class DishDataSource {
         return dish;
     }
 
+    public void storeDish(Dish dish) {
+        //TODO
+        createDish(dish.getName(), dish.getDescription(), dish.getPrice());
+    }
+
     public Dish cursorToDish(Cursor cursor) {
         assert(cursor != null);
         int idIndex = cursor.getColumnIndex(DishDbHelper.COLUMN_ID);
