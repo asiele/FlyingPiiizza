@@ -1,4 +1,4 @@
-package annes.flyingpiiizza;
+package annes.flyingpiiizza.dishesdb;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

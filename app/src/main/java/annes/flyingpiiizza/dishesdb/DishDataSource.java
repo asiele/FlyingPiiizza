@@ -1,4 +1,4 @@
-package annes.flyingpiiizza;
+package annes.flyingpiiizza.dishesdb;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import annes.flyingpiiizza.Dish;
 
 /**
  * Created by Johanna on 28.04.2017.
