@@ -3,11 +3,18 @@ package annes.flyingpiiizza;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.ListView;
+
+import java.util.List;
+
+import annes.flyingpiiizza.dishesdb.DishDataSource;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
     Button dishes;
     Button orders;
     Button exit;
+
+
+    public static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private DishDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +61,37 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        //for testing database
+        Dish testDish = new Dish("TestDishName", "This is a test dish", 20, null);
+        Log.d(LOG_TAG, "Inhalt der Testmemo: " + testDish.toString());
+
+        dataSource = new DishDataSource(this);
+
+        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
+        dataSource.open();
+
+        Dish dish = dataSource.createDish("Testgericht", "Beschreibung für Testgericht", 30);
+        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
+        Log.d(LOG_TAG, ", Inhalt: " + dish.toString());
+
+        Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
+        showAllListEntries();
+
+        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
+        dataSource.close();
+    }
+
+    private void showAllListEntries () {
+        List<Dish> dishList = dataSource.getAllDishes();
+
+        ArrayAdapter<Dish> dishArrayAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_multiple_choice,
+                dishList);
+
+       // ListView dishListView = (ListView) findViewById(R.id.listview_shopping_memos);
+       // dishListView.setAdapter(dishArrayAdapter);
     }
 
     @Override
