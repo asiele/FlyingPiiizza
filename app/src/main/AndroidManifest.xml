@@ -30,7 +30,11 @@
         <activity
             android:name=".CreateDishActivity"
             android:label="@string/title_activity_create_dish"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AllDishesActivity"
+            android:label="AllDishesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

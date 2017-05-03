@@ -7,4 +7,12 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="annes.flyingpiiizza.AllDishesActivity"
     tools:showIn="@layout/activity_all_dishes">
+
+
+    <ListView
+        android:id="@+id/all_dishes"
+        android:layout_width="193dp"
+        android:layout_height="415dp"
+        android:layout_weight="0.64" />
+
 </android.support.constraint.ConstraintLayout>

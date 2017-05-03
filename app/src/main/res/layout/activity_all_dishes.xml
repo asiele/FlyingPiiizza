@@ -18,9 +18,6 @@
         android:background="@android:color/holo_red_dark"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
+    <include layout="@layout/content_all_dishes" />
 
-<ListView
-        android:layout_width="193dp"
-        android:layout_height="415dp"
-        android:layout_weight="0.64" />
 </android.support.design.widget.CoordinatorLayout>

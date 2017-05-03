@@ -5,4 +5,6 @@
     <string name="title_activity_dish">Gerichte</string>
     <string name="title_activity_impressum">Impressum</string>
     <string name="title_activity_create_dish">CreateDishActivity</string>
+    <string name="title_activity_all_dishes2">activity_all_dishes2</string>
+    <string name="title_activity_content_all_dishes2">content_all_dishes2</string>
 </resources>
