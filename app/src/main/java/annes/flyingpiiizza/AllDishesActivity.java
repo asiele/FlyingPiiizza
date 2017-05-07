@@ -41,7 +41,7 @@ public class AllDishesActivity extends AppCompatActivity {
 
         ArrayAdapter<Dish> dishArrayAdapter = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_list_item_1,
+                android.R.layout.,
                 dishList);
 
         if(listView == null) {
