@@ -19,6 +19,7 @@ public class AllDishesActivity extends AppCompatActivity {
     DishDataSource dataSource;
     ListView list;
     String[] dishNames = {};
+    String[] dishDescriptions = {};
     Integer[] dishPrices = {};
     Integer[] imgid={
             R.drawable.pic1,
@@ -40,7 +41,8 @@ public class AllDishesActivity extends AppCompatActivity {
         dataSource.open();
         dishNames = dataSource.getAllDishesNamesAsStringArray();
         dishPrices = dataSource.getAllDishesPricesAsStringArray();
-        CustomListAdapter adapter=new CustomListAdapter(this, dishNames, dishPrices, imgid);
+        dishDescriptions = dataSource.getAllDishesDescriptionAsStringArray();
+        CustomListAdapter adapter=new CustomListAdapter(this, dishNames, dishPrices, dishDescriptions, imgid);
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter);
 

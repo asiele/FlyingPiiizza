@@ -115,6 +115,15 @@ public class DishDataSource {
         return dishesNamesList.toArray(array);
     }
 
+    public String[] getAllDishesDescriptionAsStringArray() {
+        String[] array = {};
+        ArrayList<String> dishesDescriptionList = new ArrayList<>();
+        for (Dish dish: getAllDishes()) {
+            dishesDescriptionList.add(dish.getDescription());
+        }
+        return dishesDescriptionList.toArray(array);
+    }
+
     public Integer[] getAllDishesPricesAsStringArray(){
         Integer[] array = {};
         ArrayList<Integer> dishesPriceList = new ArrayList<>();

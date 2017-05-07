@@ -13,9 +13,10 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     private final Activity context;
     private final String[] dishNames;
     private final Integer[] dishPrices;
+    private final String[] dishDescriptions;
     private final Integer[] imgid;
 
-    public CustomListAdapter(Activity context, String[] dishNames, Integer[] dishPrices, Integer[] imgid) {
+    public CustomListAdapter(Activity context, String[] dishNames, Integer[] dishPrices, String[] dishDescriptions, Integer[] imgid) {
         super(context, R.layout.mylist, dishNames);
         // TODO Auto-generated constructor stub
 
@@ -23,6 +24,7 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         this.dishNames = dishNames;
         this.imgid=imgid;
         this.dishPrices = dishPrices;
+        this.dishDescriptions = dishDescriptions;
     }
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
@@ -30,12 +32,14 @@ public class CustomListAdapter extends ArrayAdapter<String> {
 
         TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
+        TextView priceView = (TextView) rowView.findViewById(R.id.price);
+        TextView extratxt = (TextView) rowView.findViewById(R.id.description);
 
         txtTitle.setText(dishNames[position]);
         imageView.setImageResource(imgid[position]);
-        extratxt.setText("Preis: "+ dishPrices[position] + " JBs");
+        priceView.setText("Preis: " + dishPrices[position] + " JBs");
+        extratxt.setText("Beschreibung: "+ dishDescriptions[position] + " JBs");
         return rowView;
 
-    };
+    }
 }
