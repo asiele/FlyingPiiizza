@@ -9,8 +9,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.List;
-
 import annes.flyingpiiizza.dishesdb.DishDataSource;
 
 
@@ -40,7 +38,7 @@ public class AllDishesActivity extends AppCompatActivity {
 
         dataSource.open();
         dishNames = dataSource.getAllDishesNamesAsStringArray();
-        dishPrices = dataSource.getAllDishesPricesAsStringArray();
+        dishPrices = dataSource.getAllDishesPricesAsIntegerArray();
         dishDescriptions = dataSource.getAllDishesDescriptionAsStringArray();
         CustomListAdapter adapter=new CustomListAdapter(this, dishNames, dishPrices, dishDescriptions, imgid);
         list=(ListView)findViewById(R.id.list);

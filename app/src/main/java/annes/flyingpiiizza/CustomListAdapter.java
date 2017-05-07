@@ -38,7 +38,9 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         txtTitle.setText(dishNames[position]);
         imageView.setImageResource(imgid[position]);
         priceView.setText("Preis: " + dishPrices[position] + " JBs");
-        extratxt.setText("Beschreibung: "+ dishDescriptions[position] + " JBs");
+        if(dishDescriptions.length < position) {
+            extratxt.setText("Beschreibung: " + dishDescriptions[position] + " JBs");
+        }
         return rowView;
 
     }
