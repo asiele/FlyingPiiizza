@@ -9,30 +9,12 @@
     tools:showIn="@layout/activity_create_dish">
 
     <TextView
-        android:id="@+id/NameTextView"
-        android:layout_width="258dp"
-        android:layout_height="0dp"
-        android:fontFamily="casual"
-        android:text="Flying Piiizza"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textColor="@android:color/background_dark"
-        android:textSize="40sp"
-        android:visibility="visible"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_above="@+id/dishesButton"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="40dp"
-        app:layout_constraintHorizontal_bias="0.503" />
-
-    <TextView
         android:id="@+id/textViewDishes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="casual"
         android:text="Neues Gericht"
         android:textAlignment="center"
@@ -42,9 +24,9 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NameTextView"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/dishName"
@@ -53,15 +35,34 @@
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:layout_marginLeft="8dp"
         android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/textViewDishes"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.495"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <EditText
+        android:id="@+id/dishType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Gericht Typ"
+        android:inputType="textPersonName"
+        android:textSize="17sp"
+        android:layout_marginLeft="8dp"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/dishName"
+        app:layout_constraintHorizontal_bias="0.504"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
@@ -69,43 +70,32 @@
         android:id="@+id/dishPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:textSize="17sp"
         android:ems="10"
         android:hint="Preis"
         android:textAlignment="center"
         android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@+id/dishName"
+        app:layout_constraintTop_toBottomOf="@+id/dishType"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
-
-    <ListView
-        android:layout_width="309dp"
-        android:layout_height="161dp"
-        android:layout_marginTop="57dp"
-        app:layout_constraintTop_toBottomOf="@+id/dishPrice"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        app:layout_constraintHorizontal_bias="0.504" />
 
     <Button
         android:id="@+id/createDish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Erstellen"
-        tools:layout_editor_absoluteY="278dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dishPrice"
-        app:layout_constraintHorizontal_bias="0.75" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
@@ -113,5 +103,61 @@
         android:id="@+id/guideline2"
         app:layout_constraintGuide_begin="20dp"
         android:orientation="vertical" />
+
+    <TextView
+        android:id="@+id/ingredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zutaten"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/dishPrice"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.501" />
+
+    <EditText
+        android:id="@+id/ingredientName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/ingredients"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.502" />
+
+    <Button
+        android:id="@+id/OKButton"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        app:layout_constraintLeft_toRightOf="@+id/ingredientName"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ingredientName"
+        android:layout_marginBottom="0dp" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zurück"
+        android:layout_marginRight="12dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp" />
+
 
 </android.support.constraint.ConstraintLayout>
