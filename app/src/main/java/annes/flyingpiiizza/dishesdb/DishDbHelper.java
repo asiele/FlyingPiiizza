@@ -17,6 +17,7 @@ public class DishDbHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "dish.database";
     public static final int DB_VERSION = 2;
     public static final String TABLE_DISHES = "dishes_table";
+    public static final String TABLE_INGREDIENTS = "ingredients_table";
 
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
@@ -24,9 +25,15 @@ public class DishDbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_INGREDIENTS = "ingredients";
 
-    public static final String SQL_CREATE = "CREATE TABLE " + TABLE_DISHES + "("
+    public static final String SQL_CREATE_DISHES = "CREATE TABLE " + TABLE_DISHES + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NAME + " TEXT NOT NULL, "
-            + COLUMN_DESCRIPTION + " TEXT, " + COLUMN_PRICE + " INTEGER NOT NULL);";
+            + COLUMN_DESCRIPTION + " TEXT, " + COLUMN_PRICE + " INTEGER NOT NULL), "
+            + "PRIMARY KEY (" + COLUMN_ID + ");";
+
+    public static final String SQL_CREATE_INGREDIENTS = "CREATE TABLE " + TABLE_INGREDIENTS + "("
+            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NAME + " TEXT NOT NULL, "
+            + "PRIMARY KEY (" + COLUMN_ID + ")," + " FOREIGN KEY (" + COLUMN_ID + ") REFERENCES "
+            + TABLE_DISHES + " (" + COLUMN_ID + "));";
 
 
     public DishDbHelper(Context context) {
@@ -39,8 +46,9 @@ public class DishDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE + " angelegt.");
-            db.execSQL(SQL_CREATE);
+            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_DISHES + " angelegt.");
+            db.execSQL(SQL_CREATE_DISHES);
+            db.execSQL(SQL_CREATE_INGREDIENTS);
         }
         catch (Exception ex) {
             Log.e(LOG_TAG, "Fehler beim Anlegen der Tabelle: " + ex.getMessage());
