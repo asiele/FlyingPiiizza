@@ -1,5 +1,6 @@
 package annes.flyingpiiizza;
 
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +20,13 @@ import annes.flyingpiiizza.dishesdb.DishDataSource;
 public class CreateDishActivity extends AppCompatActivity {
 
     private Button createButton;
+    private Button okButton;
     private EditText dishNameField;
     private EditText dishPriceField;
+    private EditText dishTypeField;
+    private EditText ingredientNameField;
+    List ingredientList = new ArrayList<String>();
+    ListView list;
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
     private DishDataSource dataSource;
@@ -33,6 +41,8 @@ public class CreateDishActivity extends AppCompatActivity {
         createButton = (Button) findViewById(R.id.createDish);
         dishNameField = (EditText) findViewById(R.id.dishName);
         dishPriceField = (EditText) findViewById(R.id.dishPrice);
+        okButton = (Button) findViewById(R.id.OKButton);
+        ingredientNameField = (EditText) findViewById(R.id.ingredientName);
 
         createButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -49,6 +59,12 @@ public class CreateDishActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        ingredientList.add("Tomate");
+        ingredientList.add("Karotte");
+        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ingredientList);
+        list=(ListView)findViewById(R.id.listOfIngredientNames);
+        list.setAdapter(adapter);
     }
 
     private void storeDishToDb(Dish dish) {
