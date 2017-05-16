@@ -74,6 +74,16 @@
             android:layout_below="@id/dishType"
             android:layout_marginTop="15dp"/>
 
+        <CheckBox
+            android:id="@+id/vegetarian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dishPrice"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="7dp"
+            android:text="vegetarisch"
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/ingredients"
             android:layout_width="wrap_content"
@@ -83,8 +93,8 @@
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="25sp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/dishPrice"
-            android:layout_marginTop="15dp"/>
+            android:layout_below="@id/vegetarian"
+            android:layout_marginTop="20dp"/>
 
         <EditText
             android:id="@+id/ingredientName"
@@ -116,13 +126,42 @@
             android:layout_below="@id/ingredientName"
             android:layout_marginTop="10dp" />
 
+        <TextView
+            android:id="@+id/pictureDish"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Bild"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="25sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/listOfIngredientNames"
+            android:layout_marginTop="15dp"/>
+
+        <Button
+            android:id="@+id/takePicture"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Bild aufnehmen"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/pictureDish"
+            android:layout_marginTop="10dp"/>
+
+        <ImageView
+            android:id="@+id/picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/takePicture"
+            android:layout_marginTop="10dp"/>
+
         <Button
             android:id="@+id/createDish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Erstellen"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/listOfIngredientNames"
+            android:layout_below="@id/picture"
             android:layout_marginTop="10dp"/>
 
         <Button
@@ -130,7 +169,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Zurück"
-            android:layout_below="@id/listOfIngredientNames"
+            android:layout_below="@id/picture"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/createDish"
             android:layout_marginLeft="35dp"/>
