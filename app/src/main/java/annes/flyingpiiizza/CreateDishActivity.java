@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import annes.flyingpiiizza.dishesdb.DishDataSource;
 public class CreateDishActivity extends AppCompatActivity {
 
     private Button createButton;
+    private Button back;
     private Button okButton;
     private EditText dishNameField;
     private EditText dishPriceField;
@@ -43,6 +45,30 @@ public class CreateDishActivity extends AppCompatActivity {
         dishPriceField = (EditText) findViewById(R.id.dishPrice);
         okButton = (Button) findViewById(R.id.OKButton);
         ingredientNameField = (EditText) findViewById(R.id.ingredientName);
+        back = (Button) findViewById(R.id.buttonBack);
+        list = (ListView) findViewById(R.id.listOfIngredientNames);
+
+        list.setOnTouchListener(new ListView.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
 
         createButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -60,9 +86,32 @@ public class CreateDishActivity extends AppCompatActivity {
             }
         });
 
+        back.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         ingredientList.add("Tomate");
         ingredientList.add("Karotte");
-        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ingredientList);
+        ingredientList.add("Apfel");
+        ingredientList.add("Banane");
+        ingredientList.add("Erdbeere");
+        ingredientList.add("Nuss");
+        ingredientList.add("Nudel");
+        ingredientList.add("Zucker");
+        ingredientList.add("Karotte");
+        ingredientList.add("Schokolade");
+        ingredientList.add("Sahne");
+        ingredientList.add("Salami");
+        ingredientList.add("Mehl");
+        ingredientList.add("Zwiebel");
+        ingredientList.add("Käse");
+        ingredientList.add("Schinken");
+        ingredientList.add("Cola");
+        ingredientList.add("Fanta");
+        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_ingredient, ingredientList);
         list=(ListView)findViewById(R.id.listOfIngredientNames);
         list.setAdapter(adapter);
     }
