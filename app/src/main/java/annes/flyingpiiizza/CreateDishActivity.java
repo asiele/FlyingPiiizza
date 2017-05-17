@@ -92,28 +92,18 @@ public class CreateDishActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        ingredientList.add("Tomate");
-        ingredientList.add("Karotte");
-        ingredientList.add("Apfel");
-        ingredientList.add("Banane");
-        ingredientList.add("Erdbeere");
-        ingredientList.add("Nuss");
-        ingredientList.add("Nudel");
-        ingredientList.add("Zucker");
-        ingredientList.add("Karotte");
-        ingredientList.add("Schokolade");
-        ingredientList.add("Sahne");
-        ingredientList.add("Salami");
-        ingredientList.add("Mehl");
-        ingredientList.add("Zwiebel");
-        ingredientList.add("Käse");
-        ingredientList.add("Schinken");
-        ingredientList.add("Cola");
-        ingredientList.add("Fanta");
-        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_ingredient, ingredientList);
+        final ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_ingredient, ingredientList);
         list=(ListView)findViewById(R.id.listOfIngredientNames);
         list.setAdapter(adapter);
+
+        okButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                ingredientList.add(ingredientNameField.getText().toString());
+                ingredientNameField.setText("");
+                list.invalidateViews();
+            }
+        });
     }
 
     private void storeDishToDb(Dish dish) {
