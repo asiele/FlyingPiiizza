@@ -23,6 +23,7 @@ public class CreateDishActivity extends AppCompatActivity {
     private Button createButton;
     private Button back;
     private Button okButton;
+    private Button resetIngredients;
     private EditText dishNameField;
     private EditText dishPriceField;
     private EditText dishTypeField;
@@ -41,6 +42,7 @@ public class CreateDishActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         createButton = (Button) findViewById(R.id.createDish);
+        resetIngredients = (Button) findViewById(R.id.resetIngredients);
         dishNameField = (EditText) findViewById(R.id.dishName);
         dishPriceField = (EditText) findViewById(R.id.dishPrice);
         okButton = (Button) findViewById(R.id.OKButton);
@@ -100,6 +102,15 @@ public class CreateDishActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ingredientList.add(ingredientNameField.getText().toString());
+                ingredientNameField.setText("");
+                list.invalidateViews();
+            }
+        });
+
+        resetIngredients.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                ingredientList.clear();
                 ingredientNameField.setText("");
                 list.invalidateViews();
             }

@@ -126,6 +126,16 @@
             android:layout_below="@id/ingredientName"
             android:layout_marginTop="10dp" />
 
+        <Button
+            android:id="@+id/resetIngredients"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:text="Zutaten zurücksetzten"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/listOfIngredientNames"
+            android:layout_marginTop="5dp"
+            android:textSize="12dp"/>
+
         <TextView
             android:id="@+id/pictureDish"
             android:layout_width="match_parent"
@@ -135,7 +145,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="25sp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/listOfIngredientNames"
+            android:layout_below="@id/resetIngredients"
             android:layout_marginTop="15dp"/>
 
         <Button
