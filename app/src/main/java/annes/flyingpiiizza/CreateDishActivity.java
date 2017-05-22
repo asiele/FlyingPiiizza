@@ -1,7 +1,12 @@
 package annes.flyingpiiizza;
 
-import android.database.DataSetObserver;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -10,9 +15,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +32,18 @@ public class CreateDishActivity extends AppCompatActivity {
     private Button back;
     private Button okButton;
     private Button resetIngredients;
+    private Button takePicture;
     private EditText dishNameField;
     private EditText dishPriceField;
     private EditText dishTypeField;
     private EditText ingredientNameField;
-    List ingredientList = new ArrayList<String>();
-    ListView list;
+    private List ingredientList = new ArrayList<String>();
+    private ListView list;
+    private ImageView picture;
+    private Intent pictureIntent;
+    private File pictureFile = new File(Environment.getExternalStorageDirectory() + "/FotoApp/bild.png");
+    private Uri pictureURI = Uri.fromFile(pictureFile);
+    private Bitmap map;
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
     private DishDataSource dataSource;
@@ -49,6 +63,8 @@ public class CreateDishActivity extends AppCompatActivity {
         ingredientNameField = (EditText) findViewById(R.id.ingredientName);
         back = (Button) findViewById(R.id.buttonBack);
         list = (ListView) findViewById(R.id.listOfIngredientNames);
+        picture = (ImageView) findViewById(R.id.picture);
+        takePicture = (Button) findViewById(R.id.takePicture);
 
         list.setOnTouchListener(new ListView.OnTouchListener() {
             @Override
@@ -115,6 +131,32 @@ public class CreateDishActivity extends AppCompatActivity {
                 list.invalidateViews();
             }
         });
+
+        takePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, pictureURI);
+                    startActivityForResult(pictureIntent, 1);
+                } catch(Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Kamera wird nicht unterstützt!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK) {
+            if(requestCode == 1) {
+                Toast.makeText(getApplicationContext(), "Bild wurde gespeichert unter: " + pictureFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                map = BitmapFactory.decodeFile(pictureFile.getAbsolutePath());
+                picture.setImageBitmap(map);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void storeDishToDb(Dish dish) {
