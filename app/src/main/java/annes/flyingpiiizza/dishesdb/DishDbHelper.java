@@ -14,7 +14,7 @@ public class DishDbHelper extends SQLiteOpenHelper {
     private static final String LOG_TAG = DishDbHelper.class.getSimpleName();
 
 
-    public static final String DB_NAME = "dish.database";
+    public static final String DB_NAME = "dish.db";
     public static final int DB_VERSION = 2;
     public static final String TABLE_DISHES = "dishes_table";
     public static final String TABLE_INGREDIENTS = "ingredients_table";
@@ -27,27 +27,27 @@ public class DishDbHelper extends SQLiteOpenHelper {
 
     public static final String SQL_CREATE_DISHES = "CREATE TABLE " + TABLE_DISHES + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NAME + " TEXT NOT NULL, "
-            + COLUMN_DESCRIPTION + " TEXT, " + COLUMN_PRICE + " INTEGER NOT NULL), "
-            + "PRIMARY KEY (" + COLUMN_ID + ");";
+            + COLUMN_DESCRIPTION + " TEXT, " + COLUMN_PRICE + " INTEGER NOT NULL);";
 
     public static final String SQL_CREATE_INGREDIENTS = "CREATE TABLE " + TABLE_INGREDIENTS + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NAME + " TEXT NOT NULL, "
             + "PRIMARY KEY (" + COLUMN_ID + ")," + " FOREIGN KEY (" + COLUMN_ID + ") REFERENCES "
             + TABLE_DISHES + " (" + COLUMN_ID + "));";
 
-
     public DishDbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         Log.d(LOG_TAG, "DbHelper hat die Datenbank: " + getDatabaseName() + " erzeugt.");
-
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d(LOG_TAG, "onCreate beim DbHelper jetzt aufgerufen.");
+
         try {
             Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_DISHES + " angelegt.");
             db.execSQL(SQL_CREATE_DISHES);
+            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_INGREDIENTS + " angelegt.");
             db.execSQL(SQL_CREATE_INGREDIENTS);
         }
         catch (Exception ex) {
