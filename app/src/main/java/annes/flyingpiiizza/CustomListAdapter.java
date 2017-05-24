@@ -36,10 +36,12 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         TextView extratxt = (TextView) rowView.findViewById(R.id.description);
 
         txtTitle.setText(dishNames[position]);
-        imageView.setImageResource(imgid[position]);
-        priceView.setText("Preis: " + dishPrices[position] + " JBs");
-        if(dishDescriptions.length < position) {
-            extratxt.setText("Beschreibung: " + dishDescriptions[position] + " JBs");
+        if(position < imgid.length) {
+            imageView.setImageResource(imgid[position]);
+        }
+        priceView.setText("Preis: " + dishPrices[position]);
+        if(position < dishDescriptions.length) {
+            extratxt.setText("Beschreibung: " + dishDescriptions[position]);
         }
         return rowView;
 
