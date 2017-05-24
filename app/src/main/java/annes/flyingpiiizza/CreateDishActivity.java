@@ -41,8 +41,8 @@ public class CreateDishActivity extends AppCompatActivity {
     private ListView list;
     private ImageView picture;
     private Intent pictureIntent;
-    private File pictureFile = new File(Environment.getExternalStorageDirectory() + "/FotoApp/bild.png");
-    private Uri pictureURI = Uri.fromFile(pictureFile);
+    private File pictureFile;
+    private Uri pictureURI;
     private Bitmap map;
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -136,9 +136,14 @@ public class CreateDishActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    pictureFile = new File(getApplicationContext().getExternalCacheDir().getAbsoluteFile() + "/image.jpg");
+                    pictureURI = Uri.fromFile(pictureFile);
+
                     pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, pictureURI);
                     startActivityForResult(pictureIntent, 1);
+
+                    Log.d(LOG_TAG, "Picture taken: " + pictureFile.getAbsoluteFile());
                 } catch(Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Kamera wird nicht unterstützt!", Toast.LENGTH_SHORT).show();
