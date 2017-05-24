@@ -178,34 +178,25 @@
             android:layout_marginTop="10dp"/>
 
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+        <Button
+            android:id="@+id/createDish"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:id="@+id/bottomButtons"
+            android:layout_height="wrap_content"
+            android:text="Erstellen"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/ingredients"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/picture" >
+            android:layout_toEndOf="@+id/ingredients" />
 
-            <Button
-                android:id="@+id/createDish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Erstellen"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/ingredients"
-                android:layout_toEndOf="@+id/ingredients" />
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zurück"
+            android:layout_below="@id/picture"
+            android:layout_toRightOf="@id/createDish"
+            android:layout_marginLeft="80dp"/>
 
-            <Button
-                android:id="@+id/buttonBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Zurück"
-                android:layout_below="@id/picture"
-                android:layout_toRightOf="@id/createDish"
-                android:layout_marginLeft="35dp"/>
-
-        </LinearLayout>
 
     </RelativeLayout>
     </ScrollView>
