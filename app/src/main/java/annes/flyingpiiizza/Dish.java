@@ -11,17 +11,19 @@ public class Dish {
     private int price;
     private List<String> ingredients;
     private String name;
-    private String description;
+    private String dishtype;
+    private String vegetarian;
 
     public Dish() {
 
     }
 
-    public Dish(String name, String description, int price, List<String> ingredients) {
+    public Dish(String name, String dishtype, int price, String vegetarian, List<String> ingredients) {
         this.price = price;
         this.ingredients = ingredients;
         this.name = name;
-        this.description = description;
+        this.dishtype = dishtype;
+        this.vegetarian = vegetarian;
     }
 
     public int getPrice() {
@@ -40,14 +42,22 @@ public class Dish {
         this.name = name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDishtype(String dishtype) {
+        this.dishtype = dishtype;
+    }
+
+    public void setVegetarian(String vegetarian) {
+        this.vegetarian = vegetarian;
+    }
+
+    public String getVegetarian() {
+        return vegetarian;
     }
 
     public void setIngredients(List<String> ingredients)  { this.ingredients = ingredients; }
 
-    public String getDescription() {
-        return description;
+    public String getDishtype() {
+        return dishtype;
     }
 
     public void addIngredient(String zutat) {
@@ -64,6 +74,6 @@ public class Dish {
     }
 
     public String toString() {
-        return "\nName: " + name + "Beschreibung: " + description + "\nPrice: " + price;
+        return "\nName: " + name + "Gericht Typ: " + dishtype + "\nPreis: " + price;
     }
 }

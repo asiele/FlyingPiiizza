@@ -21,13 +21,15 @@ public class DishDbHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
-    public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_DISHTYPE = "dishtype";
     public static final String COLUMN_PRICE = "price";
+    public static final String COLUMN_VEGETARIAN = "vegetarian";
     public static final String COLUMN_INGREDIENTS = "ingredients";
 
     public static final String SQL_CREATE_DISHES = "CREATE TABLE " + TABLE_DISHES + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NAME + " TEXT NOT NULL, "
-            + COLUMN_DESCRIPTION + " TEXT, " + COLUMN_PRICE + " INTEGER NOT NULL);";
+            + COLUMN_DISHTYPE + "TEXT, " + COLUMN_PRICE + " INTEGER NOT NULL, "
+            + COLUMN_VEGETARIAN + "TEXT NOT NULL);";
 
     public static final String SQL_CREATE_INGREDIENTS = "CREATE TABLE " + TABLE_INGREDIENTS + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NAME + " TEXT NOT NULL, "

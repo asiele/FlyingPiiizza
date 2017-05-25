@@ -25,8 +25,9 @@ public class DishDataSource {
     private String[] columns = {
             DishDbHelper.COLUMN_ID,
             DishDbHelper.COLUMN_NAME,
-            DishDbHelper.COLUMN_DESCRIPTION,
+            DishDbHelper.COLUMN_DISHTYPE,
             DishDbHelper.COLUMN_PRICE,
+            DishDbHelper.COLUMN_VEGETARIAN
     };
 
 
@@ -45,12 +46,13 @@ public class DishDataSource {
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
-    public Dish createDish(String name, String description, int price) {
+    public Dish createDish(String name, String dishtype, int price, String vegetarian) {
         assert(name != null && price != 0);
         ContentValues values = new ContentValues();
         values.put(DishDbHelper.COLUMN_NAME, name);
-        values.put(DishDbHelper.COLUMN_DESCRIPTION, description);
+        values.put(DishDbHelper.COLUMN_DISHTYPE, dishtype);
         values.put(DishDbHelper.COLUMN_PRICE, price);
+        values.put(DishDbHelper.COLUMN_VEGETARIAN, vegetarian);
         Log.d(LOG_TAG, "values put");
         long insertId = (database.insert(DishDbHelper.TABLE_DISHES, null, values));
         Log.d(LOG_TAG, "inserted");
@@ -66,22 +68,24 @@ public class DishDataSource {
 
     public void storeDish(Dish dish) {
         //TODO
-        createDish(dish.getName(), dish.getDescription(), dish.getPrice());
+        createDish(dish.getName(), dish.getDishtype(), dish.getPrice(), dish.getVegetarian());
     }
 
     public Dish cursorToDish(Cursor cursor) {
         assert(cursor != null);
         int idIndex = cursor.getColumnIndex(DishDbHelper.COLUMN_ID);
         int idName = cursor.getColumnIndex(DishDbHelper.COLUMN_NAME);
-        int idDescription = cursor.getColumnIndex(DishDbHelper.COLUMN_DESCRIPTION);
+        int idDishtype = cursor.getColumnIndex(DishDbHelper.COLUMN_DISHTYPE);
         int idPrice = cursor.getColumnIndex(DishDbHelper.COLUMN_PRICE);
+        int idVegetarian = cursor.getColumnIndex(DishDbHelper.COLUMN_VEGETARIAN);
 
         String name = cursor.getString(idName);
-        String description = cursor.getString(idDescription);
+        String dishtype = cursor.getString(idDishtype);
+        String vegetarian = cursor.getString(idVegetarian);
         int price = cursor.getInt(idPrice);
         long id = cursor.getLong(idIndex);
 
-        Dish dish = new Dish(name, description, price, null);
+        Dish dish = new Dish(name, dishtype, price, vegetarian, null);
         return dish;
     }
 
@@ -115,13 +119,13 @@ public class DishDataSource {
         return dishesNamesList.toArray(array);
     }
 
-    public String[] getAllDishesDescriptionAsStringArray() {
+    public String[] getAllDishesTypesAsStringArray() {
         String[] array = {};
-        ArrayList<String> dishesDescriptionList = new ArrayList<>();
+        ArrayList<String> dishesTypesList = new ArrayList<>();
         for (Dish dish: getAllDishes()) {
-            dishesDescriptionList.add(dish.getDescription());
+            dishesTypesList.add(dish.getDishtype());
         }
-        return dishesDescriptionList.toArray(array);
+        return dishesTypesList.toArray(array);
     }
 
     public Integer[] getAllDishesPricesAsIntegerArray(){
@@ -131,6 +135,15 @@ public class DishDataSource {
             dishesPriceList.add(dish.getPrice());
         }
         return dishesPriceList.toArray(array);
+    }
+
+    public String[] getAllDishesVegetarianAsStringArray() {
+        String[] array = {};
+        ArrayList<String> dishesVegetarianList = new ArrayList<>();
+        for (Dish dish: getAllDishes()) {
+            dishesVegetarianList.add(dish.getVegetarian());
+        }
+        return dishesVegetarianList.toArray(array);
     }
 }
 

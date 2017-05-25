@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -44,6 +45,7 @@ public class CreateDishActivity extends AppCompatActivity {
     private File pictureFile;
     private Uri pictureURI;
     private Bitmap map;
+    private CheckBox vegetarian;
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
     private DishDataSource dataSource;
@@ -59,12 +61,14 @@ public class CreateDishActivity extends AppCompatActivity {
         resetIngredients = (Button) findViewById(R.id.resetIngredients);
         dishNameField = (EditText) findViewById(R.id.dishName);
         dishPriceField = (EditText) findViewById(R.id.dishPrice);
+        dishTypeField = (EditText) findViewById(R.id.dishType);
         okButton = (Button) findViewById(R.id.OKButton);
         ingredientNameField = (EditText) findViewById(R.id.ingredientName);
         back = (Button) findViewById(R.id.buttonBack);
         list = (ListView) findViewById(R.id.listOfIngredientNames);
         picture = (ImageView) findViewById(R.id.picture);
         takePicture = (Button) findViewById(R.id.takePicture);
+        vegetarian = (CheckBox) findViewById(R.id.vegetarian);
 
         list.setOnTouchListener(new ListView.OnTouchListener() {
             @Override
@@ -91,10 +95,18 @@ public class CreateDishActivity extends AppCompatActivity {
         createButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                String isVegetarian;
+                if(vegetarian.isChecked()) {
+                    isVegetarian = "true";
+                } else {
+                    isVegetarian = "false";
+                }
+
                 Dish newDish = new Dish(
                         dishNameField.getText().toString(),
-                        "",
+                        dishTypeField.getText().toString(),
                         Integer.parseInt(dishPriceField.getText().toString()),
+                        isVegetarian,
                         new ArrayList<String>()
                 );
 
