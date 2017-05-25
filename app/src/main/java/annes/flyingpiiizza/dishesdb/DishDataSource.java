@@ -22,12 +22,17 @@ public class DishDataSource {
     private SQLiteDatabase database;
     private DishDbHelper dbHelper;
 
-    private String[] columns = {
-            DishDbHelper.COLUMN_ID,
-            DishDbHelper.COLUMN_NAME,
-            DishDbHelper.COLUMN_DISHTYPE,
-            DishDbHelper.COLUMN_PRICE,
-            DishDbHelper.COLUMN_VEGETARIAN
+    private static final String[] DISHES_COLUMNS = {
+            DishDbHelper.DB_TABLE_DISHES_COL_ID,
+            DishDbHelper.DB_TABLE_DISHES_COL_NAME,
+            DishDbHelper.DB_TABLE_DISHES_COL_DISHTYPE,
+            DishDbHelper.DB_TABLE_DISHES_COL_PRICE,
+            DishDbHelper.DB_TABLE_DISHES_COL_VEGETARIAN
+    };
+
+    private static final String[] INGREDIENTS_COLUMNS = {
+            DishDbHelper.DB_TABLE_INGREDIENTS_COL_ID,
+            DishDbHelper.DB_TABLE_INGREDIENTS_COL_NAME
     };
 
 
@@ -48,20 +53,28 @@ public class DishDataSource {
 
     public Dish createDish(String name, String dishtype, int price, String vegetarian) {
         assert(name != null && price != 0);
+
         ContentValues values = new ContentValues();
-        values.put(DishDbHelper.COLUMN_NAME, name);
-        values.put(DishDbHelper.COLUMN_DISHTYPE, dishtype);
-        values.put(DishDbHelper.COLUMN_PRICE, price);
-        values.put(DishDbHelper.COLUMN_VEGETARIAN, vegetarian);
+
+        values.put(DishDbHelper.DB_TABLE_DISHES_COL_NAME, name);
+        values.put(DishDbHelper.DB_TABLE_DISHES_COL_DISHTYPE, dishtype);
+        values.put(DishDbHelper.DB_TABLE_DISHES_COL_PRICE, price);
+        values.put(DishDbHelper.DB_TABLE_DISHES_COL_VEGETARIAN, vegetarian);
+
         Log.d(LOG_TAG, "values put");
-        long insertId = (database.insert(DishDbHelper.TABLE_DISHES, null, values));
+
+        long insertId = database.insert(DishDbHelper.DB_TABLE_DISHES_NAME, null, values);
+
         Log.d(LOG_TAG, "inserted");
-        Cursor cursor = database.query(DishDbHelper.TABLE_DISHES, columns,
-                DishDbHelper.COLUMN_ID + "=" + insertId, null, null, null, null);
+
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME, DISHES_COLUMNS,
+                DishDbHelper.DB_TABLE_DISHES_COL_ID + "=" + insertId, null, null, null, null);
+
         if (cursor == null) Log.d(LOG_TAG, "cursor null");
         cursor.moveToFirst();
         Dish dish = cursorToDish(cursor);
         cursor.close();
+
         Log.d(LOG_TAG, "cursor closed");
         return dish;
     }
@@ -73,11 +86,11 @@ public class DishDataSource {
 
     public Dish cursorToDish(Cursor cursor) {
         assert(cursor != null);
-        int idIndex = cursor.getColumnIndex(DishDbHelper.COLUMN_ID);
-        int idName = cursor.getColumnIndex(DishDbHelper.COLUMN_NAME);
-        int idDishtype = cursor.getColumnIndex(DishDbHelper.COLUMN_DISHTYPE);
-        int idPrice = cursor.getColumnIndex(DishDbHelper.COLUMN_PRICE);
-        int idVegetarian = cursor.getColumnIndex(DishDbHelper.COLUMN_VEGETARIAN);
+        int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_ID);
+        int idName = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_NAME );
+        int idDishtype = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_DISHTYPE);
+        int idPrice = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_PRICE);
+        int idVegetarian = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_VEGETARIAN);
 
         String name = cursor.getString(idName);
         String dishtype = cursor.getString(idDishtype);
@@ -92,8 +105,8 @@ public class DishDataSource {
     public List<Dish> getAllDishes() {
         List<Dish> dishList = new ArrayList<>();
 
-        Cursor cursor = database.query(DishDbHelper.TABLE_DISHES,
-                columns, null, null, null, null, null);
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME,
+                DISHES_COLUMNS, null, null, null, null, null);
 
         cursor.moveToFirst();
         Dish dish;

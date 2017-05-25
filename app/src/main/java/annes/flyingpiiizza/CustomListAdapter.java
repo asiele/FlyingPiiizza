@@ -1,6 +1,7 @@
 package annes.flyingpiiizza;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import annes.flyingpiiizza.dishesdb.DishDbHelper;
+
 public class CustomListAdapter extends ArrayAdapter<String> {
 
+    private static final String LOG_TAG = DishDbHelper.class.getSimpleName();
     private final Activity context;
     private final String[] dishNames;
     private final Integer[] dishPrices;

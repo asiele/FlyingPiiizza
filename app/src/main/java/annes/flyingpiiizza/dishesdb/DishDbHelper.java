@@ -13,7 +13,54 @@ public class DishDbHelper extends SQLiteOpenHelper {
 
     private static final String LOG_TAG = DishDbHelper.class.getSimpleName();
 
+    public static final String DB_NANE = "dish.db";
+    public static final int DB_VERSION = 2;
 
+    public static final String DB_TABLE_DISHES_NAME = "dishes_table";
+    public static final String DB_TABLE_DISHES_COL_ID = "_id";
+    public static final String DB_TABLE_DISHES_COL_NAME = "name";
+    public static final String DB_TABLE_DISHES_COL_DISHTYPE = "dishtype";
+    public static final String DB_TABLE_DISHES_COL_PRICE = "price";
+    public static final String DB_TABLE_DISHES_COL_VEGETARIAN = "vegetarian";
+
+    public static final String DB_TABLE_INGREDIENTS_NAME = "ingredients_table";
+    public static final String DB_TABLE_INGREDIENTS_COL_ID = "_id";
+    public static final String DB_TABLE_INGREDIENTS_COL_NAME = "name";
+
+    public static final String SQL_CREATE_TABLE_DISHES = String.format(
+            "CREATE TABLE %s (" +
+                    "%s INTEGER PRIMARY KEY AUTOINCREMENT," +        // id
+                    "%s TEXT NOT NULL," +                            // name
+                    "%s TEXT," +                                      // dish type
+                    "%s INTEGER NOT NULL," +                         // price
+                    "%s TEXT NOT NULL" +                             // vegetarian
+            ")",
+            DB_TABLE_DISHES_NAME,
+            DB_TABLE_DISHES_COL_ID,
+            DB_TABLE_DISHES_COL_NAME,
+            DB_TABLE_DISHES_COL_DISHTYPE,
+            DB_TABLE_DISHES_COL_PRICE,
+            DB_TABLE_DISHES_COL_VEGETARIAN);
+
+    public static final String SQL_CREATE_TABLE_INGREDIENTS = String.format(
+            "CREATE TABLE %s (" +
+                    "%s INTEGER PRIMARY KEY AUTOINCREMENT," +       // id
+                    "%s TEXT NOT NULL," +                           // name
+                    "FOREIGN KEY (%s) REFERENCES %s (%s)" +         // id references dishes->id
+            ")",
+            DB_TABLE_INGREDIENTS_NAME,
+            DB_TABLE_INGREDIENTS_COL_ID,
+            DB_TABLE_INGREDIENTS_COL_NAME,
+            DB_TABLE_INGREDIENTS_COL_ID, DB_TABLE_DISHES_NAME, DB_TABLE_DISHES_COL_ID);
+
+
+    public DishDbHelper(Context context) {
+        super(context, DB_NANE, null, DB_VERSION);
+        Log.d(LOG_TAG, "DbHelper hat die Datenbank: " + getDatabaseName() + " erzeugt.");
+    }
+
+
+/*
     public static final String DB_NAME = "dish.db";
     public static final int DB_VERSION = 2;
     public static final String TABLE_DISHES = "dishes_table";
@@ -36,21 +83,17 @@ public class DishDbHelper extends SQLiteOpenHelper {
             + "PRIMARY KEY (" + COLUMN_ID + ")," + " FOREIGN KEY (" + COLUMN_ID + ") REFERENCES "
             + TABLE_DISHES + " (" + COLUMN_ID + "));";
 
-    public DishDbHelper(Context context) {
-        super(context, DB_NAME, null, DB_VERSION);
-        Log.d(LOG_TAG, "DbHelper hat die Datenbank: " + getDatabaseName() + " erzeugt.");
-    }
-
+*/
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(LOG_TAG, "onCreate beim DbHelper jetzt aufgerufen.");
 
         try {
-            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_DISHES + " angelegt.");
-            db.execSQL(SQL_CREATE_DISHES);
-            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_INGREDIENTS + " angelegt.");
-            db.execSQL(SQL_CREATE_INGREDIENTS);
+            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_TABLE_DISHES + " angelegt.");
+            db.execSQL(SQL_CREATE_TABLE_DISHES);
+            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_TABLE_INGREDIENTS + " angelegt.");
+            db.execSQL(SQL_CREATE_TABLE_INGREDIENTS);
         }
         catch (Exception ex) {
             Log.e(LOG_TAG, "Fehler beim Anlegen der Tabelle: " + ex.getMessage());
