@@ -122,6 +122,7 @@ public class CreateDishActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         final ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_ingredient, ingredientList);
         list=(ListView)findViewById(R.id.listOfIngredientNames);
         list.setAdapter(adapter);

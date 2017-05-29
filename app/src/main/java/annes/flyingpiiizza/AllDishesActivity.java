@@ -1,5 +1,6 @@
 package annes.flyingpiiizza;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -49,10 +50,8 @@ public class AllDishesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // TODO Auto-generated method stub
-                String Slecteditem= dishNames[+position];
-                Toast.makeText(getApplicationContext(), Slecteditem, Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(AllDishesActivity.this, DishInformation.class);
+                startActivity(intent);
             }
         });
 
