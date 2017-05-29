@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="annes.flyingpiiizza.DishInformation"
+    tools:showIn="@layout/activity_dish_information">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="0dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="0dp">
+
+            <TextView
+                android:id="@+id/nameDishInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="29dp"
+                android:fontFamily="casual"
+                android:text="Gericht Name"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/typeDishInfoLinearLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/nameDishInfo"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/typeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Typ:"
+                    android:textSize="20sp"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:id="@+id/typeDishInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Gericht Typ"
+                    android:textSize="20sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toRightOf="@+id/typeText"
+                    android:layout_marginLeft="5dp"/>
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/priceDishInfoLinearLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/typeDishInfoLinearLayout"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/priceText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Preis:"
+                    android:textSize="20sp"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:id="@+id/priceDishInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Preis"
+                    android:textSize="20sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toRightOf="@+id/priceText"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/JBtext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="JBs"
+                    android:textSize="20sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toRightOf="@+id/priceDishInfo"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/vegetarianDishInfoLinearLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/priceDishInfoLinearLayout"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/vegetarianText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Vegetarisch:"
+                    android:textSize="20sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/priceDishInfoLinearLayout"/>
+
+                <TextView
+                    android:id="@+id/vegetarianDishInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="nein"
+                    android:textSize="20sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toRightOf="@+id/vegetarienDishInfo"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/ingredientsDishInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zutaten"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="23sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/vegetarianDishInfoLinearLayout"
+                android:layout_marginTop="15dp"/>
+
+            <ListView
+                android:id="@+id/listOfIngredientNames"
+                android:layout_width="250dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/ingredientsDishInfo"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/pictureDish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bild"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="23sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/listOfIngredientNames"
+                android:layout_marginTop="5dp"/>
+
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/pictureDish"
+                android:layout_marginTop="5dp"/>
+
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/picture"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="Gericht löschen" />
+
+            <Button
+                android:id="@+id/buttonBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zurück"
+                android:layout_toRightOf="@id/buttonDelete"
+                android:layout_marginLeft="117dp"
+                android:layout_below="@id/picture"
+                android:layout_marginTop="5dp"/>
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

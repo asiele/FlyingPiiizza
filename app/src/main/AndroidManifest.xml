@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="annes.flyingpiiizza">
-    
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -31,13 +32,17 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateDishActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_create_dish"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AllDishesActivity"
             android:label="Flying Piiizza"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DishInformation"
+            android:label="@string/title_activity_dish_information"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
