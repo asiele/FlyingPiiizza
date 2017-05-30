@@ -9,11 +9,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.Button;
 
 import annes.flyingpiiizza.dishesdb.DishDataSource;
 
 
 public class AllDishesActivity extends AppCompatActivity {
+
+    private Button back;
+    private Button impressum;
 
     DishDataSource dataSource;
     ListView list;
@@ -32,6 +36,24 @@ public class AllDishesActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         showAllDishes();
+
+        back = (Button) findViewById(R.id.backButton);
+        impressum = (Button) findViewById(R.id.impressumButton);
+
+        back.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        impressum.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AllDishesActivity.this, ImpressumActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void showAllDishes() {
