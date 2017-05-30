@@ -97,9 +97,9 @@ public class CreateDishActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String isVegetarian;
                 if(vegetarian.isChecked()) {
-                    isVegetarian = "true";
+                    isVegetarian = "ja";
                 } else {
-                    isVegetarian = "false";
+                    isVegetarian = "nein";
                 }
 
                 Dish newDish = new Dish(

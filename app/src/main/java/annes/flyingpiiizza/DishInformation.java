@@ -19,6 +19,7 @@ public class DishInformation extends AppCompatActivity {
     private TextView name;
     private TextView price;
     private TextView dishType;
+    private TextView vegetarian;
     DishDataSource dataSource;
     private int thisID;
 
@@ -55,10 +56,12 @@ public class DishInformation extends AppCompatActivity {
         name = (TextView) findViewById(R.id.nameDishInfo);
         price = (TextView) findViewById(R.id.priceDishInfo);
         dishType = (TextView) findViewById(R.id.typeDishInfo);
+        vegetarian = (TextView) findViewById(R.id.vegetarianDishInfo);
 
         name.setText(dish.getName());
         price.setText(Integer.toString(dish.getPrice()));
         dishType.setText(dish.getDishtype());
+        vegetarian.setText(dish.getVegetarian());
         dataSource.close();
 
     }
