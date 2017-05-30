@@ -35,6 +35,10 @@ public class DishDataSource {
             DishDbHelper.DB_TABLE_INGREDIENTS_COL_NAME
     };
 
+    private static final String[] ID_DISHES_COLUMNS = {
+        DishDbHelper.DB_TABLE_DISHES_COL_ID
+    };
+
 
     public DishDataSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
@@ -123,6 +127,24 @@ public class DishDataSource {
         return dishList;
     }
 
+    public List<Integer> getAllIDs() {
+        List<Integer> idList = new ArrayList<>();
+
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME,
+        ID_DISHES_COLUMNS, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        int currentID;
+        while(!cursor.isAfterLast()) {
+            int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_ID);
+            currentID = cursor.getInt(idIndex);
+            idList.add(currentID);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return idList;
+    }
+
     public String[] getAllDishesNamesAsStringArray() {
         String[] array = {};
         ArrayList<String> dishesNamesList = new ArrayList<>();
@@ -157,6 +179,19 @@ public class DishDataSource {
             dishesVegetarianList.add(dish.getVegetarian());
         }
         return dishesVegetarianList.toArray(array);
+    }
+
+    public Dish getDishByID(int id) {
+        Dish dish;
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME,
+                DISHES_COLUMNS, DishDbHelper.DB_TABLE_DISHES_COL_ID + "=" + id, null, null, null, null);
+        if (cursor == null) Log.d(LOG_TAG, "cursor null");
+        cursor.moveToFirst();
+        dish = cursorToDish(cursor);
+        cursor.close();
+
+        Log.d(LOG_TAG, "cursor closed");
+        return dish;
     }
 }
 
