@@ -38,7 +38,7 @@ public class CreateDishActivity extends AppCompatActivity {
     private EditText dishPriceField;
     private EditText dishTypeField;
     private EditText ingredientNameField;
-    private List ingredientList = new ArrayList<String>();
+    private ArrayList ingredientList = new ArrayList<String>();
     private ListView list;
     private ImageView picture;
     private Intent pictureIntent;
@@ -111,6 +111,9 @@ public class CreateDishActivity extends AppCompatActivity {
                 );
 
                 storeDishToDb(newDish);
+                if(ingredientList.size() > 0) {
+                    storeIngredientsToDb(ingredientList, newDish);
+                }
 
                 finish();
             }
@@ -188,6 +191,20 @@ public class CreateDishActivity extends AppCompatActivity {
 
         dataSource.close();
     }
+
+    private void storeIngredientsToDb(ArrayList<String> ingredients, Dish dish) {
+        dataSource = new DishDataSource(this);
+
+        dataSource.open();
+        dataSource.storeIngredients(ingredients, dish);
+
+        Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
+        showAllListEntries();
+
+        dataSource.close();
+    }
+
+
 
     private void showAllListEntries () {
         List<Dish> dishList = dataSource.getAllDishes();

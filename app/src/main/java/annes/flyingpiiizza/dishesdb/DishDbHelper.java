@@ -26,6 +26,7 @@ public class DishDbHelper extends SQLiteOpenHelper {
     public static final String DB_TABLE_INGREDIENTS_NAME = "ingredients_table";
     public static final String DB_TABLE_INGREDIENTS_COL_ID = "_id";
     public static final String DB_TABLE_INGREDIENTS_COL_NAME = "name";
+    public static final String DB_TABLE_INGREDIENTS_COL_DISH_ID = "dishid";
 
     public static final String SQL_CREATE_TABLE_DISHES = String.format(
             "CREATE TABLE %s (" +
@@ -46,12 +47,12 @@ public class DishDbHelper extends SQLiteOpenHelper {
             "CREATE TABLE %s (" +
                     "%s INTEGER PRIMARY KEY AUTOINCREMENT," +       // id
                     "%s TEXT NOT NULL," +                           // name
-                    "FOREIGN KEY (%s) REFERENCES %s (%s)" +         // id references dishes->id
+                    "%s INTEGER NOT NULL" +         // id references dishes->id
             ")",
             DB_TABLE_INGREDIENTS_NAME,
             DB_TABLE_INGREDIENTS_COL_ID,
             DB_TABLE_INGREDIENTS_COL_NAME,
-            DB_TABLE_INGREDIENTS_COL_ID, DB_TABLE_DISHES_NAME, DB_TABLE_DISHES_COL_ID);
+            DB_TABLE_INGREDIENTS_COL_DISH_ID);
 
 
     public DishDbHelper(Context context) {

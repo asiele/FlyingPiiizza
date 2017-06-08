@@ -32,29 +32,39 @@ public class DishDataSource {
 
     private static final String[] INGREDIENTS_COLUMNS = {
             DishDbHelper.DB_TABLE_INGREDIENTS_COL_ID,
-            DishDbHelper.DB_TABLE_INGREDIENTS_COL_NAME
+            DishDbHelper.DB_TABLE_INGREDIENTS_COL_NAME,
+            DishDbHelper.DB_TABLE_INGREDIENTS_COL_DISH_ID
     };
 
     private static final String[] ID_DISHES_COLUMNS = {
-        DishDbHelper.DB_TABLE_DISHES_COL_ID
+            DishDbHelper.DB_TABLE_DISHES_COL_ID
+    };
+
+    private static final String[] NAME_ID_INGREDIENTS_COLUMNS = {
+            DishDbHelper.DB_TABLE_INGREDIENTS_COL_ID,
+            DishDbHelper.DB_TABLE_INGREDIENTS_COL_NAME
     };
 
 
+    //Constructor
     public DishDataSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
         dbHelper = new DishDbHelper(context);
     }
 
+    //Opens the Database
     public void open() {
         database = dbHelper.getWritableDatabase();
         Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
     }
 
+    //Closes the Database
     public void close() {
         dbHelper.close();
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
+    //Creates a dish with the given values and stores it in the database
     public Dish createDish(String name, String dishtype, int price, String vegetarian) {
         assert(name != null && price != 0);
 
@@ -83,11 +93,26 @@ public class DishDataSource {
         return dish;
     }
 
+    //Stores the given Dish in the Database
     public void storeDish(Dish dish) {
         //TODO
         createDish(dish.getName(), dish.getDishtype(), dish.getPrice(), dish.getVegetarian());
     }
 
+    //This Method stores the Ingredients of a given Dish in the database
+    public void storeIngredients(ArrayList<String> ingredients, Dish dish) {
+        int id = getIdByDish(dish);
+        for(int i = 0; i < ingredients.size(); i++) {
+            ContentValues values = new ContentValues();
+            values.put(DishDbHelper.DB_TABLE_INGREDIENTS_COL_NAME, ingredients.get(i));
+            values.put(DishDbHelper.DB_TABLE_INGREDIENTS_COL_DISH_ID, id);
+            Log.d(LOG_TAG, "values put");
+            database.insert(DishDbHelper.DB_TABLE_INGREDIENTS_NAME, null, values);
+            Log.d(LOG_TAG, "inserted");
+        }
+    }
+
+    //Method returnes the Dish, the cursor points to
     public Dish cursorToDish(Cursor cursor) {
         assert(cursor != null);
         int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_ID);
@@ -106,6 +131,7 @@ public class DishDataSource {
         return dish;
     }
 
+    //A List of all Dishes stored in the Database is returned
     public List<Dish> getAllDishes() {
         List<Dish> dishList = new ArrayList<>();
 
@@ -127,6 +153,28 @@ public class DishDataSource {
         return dishList;
     }
 
+    //A List of all Ingredients, that belong to a given Dish id, is returned
+    public List<String> getAllIngredientsByDishID(int id) {
+        List<String> ingredients = new ArrayList<>();
+
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_INGREDIENTS_NAME,
+                NAME_ID_INGREDIENTS_COLUMNS, DishDbHelper.DB_TABLE_INGREDIENTS_COL_DISH_ID
+                        + "=" + id, null, null, null, null);
+
+        cursor.moveToFirst();
+        String ingredient;
+
+        while(!cursor.isAfterLast()) {
+            int index = cursor.getColumnIndex(DishDbHelper.DB_TABLE_INGREDIENTS_COL_NAME);
+            ingredient = cursor.getString(index);
+            ingredients.add(ingredient);
+            cursor.moveToNext();
+        }
+
+        return ingredients;
+    }
+
+    //A List of all Dish IDs is returned
     public List<Integer> getAllIDs() {
         List<Integer> idList = new ArrayList<>();
 
@@ -145,6 +193,7 @@ public class DishDataSource {
         return idList;
     }
 
+    //All Dish Names are returned as an String Array
     public String[] getAllDishesNamesAsStringArray() {
         String[] array = {};
         ArrayList<String> dishesNamesList = new ArrayList<>();
@@ -154,6 +203,7 @@ public class DishDataSource {
         return dishesNamesList.toArray(array);
     }
 
+    //All Dish Types are returned as an String Array
     public String[] getAllDishesTypesAsStringArray() {
         String[] array = {};
         ArrayList<String> dishesTypesList = new ArrayList<>();
@@ -163,6 +213,7 @@ public class DishDataSource {
         return dishesTypesList.toArray(array);
     }
 
+    //All Dish Prices are returned as an Integer Array
     public Integer[] getAllDishesPricesAsIntegerArray(){
         Integer[] array = {};
         ArrayList<Integer> dishesPriceList = new ArrayList<>();
@@ -172,6 +223,7 @@ public class DishDataSource {
         return dishesPriceList.toArray(array);
     }
 
+    //All vegetarian values are returned as an String array
     public String[] getAllDishesVegetarianAsStringArray() {
         String[] array = {};
         ArrayList<String> dishesVegetarianList = new ArrayList<>();
@@ -181,6 +233,7 @@ public class DishDataSource {
         return dishesVegetarianList.toArray(array);
     }
 
+    //A dish is returned by its id
     public Dish getDishByID(int id) {
         Dish dish;
         Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME,
@@ -192,6 +245,27 @@ public class DishDataSource {
 
         Log.d(LOG_TAG, "cursor closed");
         return dish;
+    }
+
+    //This method returnes the id of a stored dish, or -1
+    public int getIdByDish(Dish dish) {
+        int id = -1;
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME,
+                DISHES_COLUMNS, DishDbHelper.DB_TABLE_DISHES_COL_NAME + "=" + dish.getName() + ", "
+                + DishDbHelper.DB_TABLE_DISHES_COL_PRICE + "=" + dish.getPrice() + ", " +
+                        DishDbHelper.DB_TABLE_DISHES_COL_DISHTYPE + "=" + dish.getDishtype() + "," +
+                DishDbHelper.DB_TABLE_DISHES_COL_VEGETARIAN + "=" + dish.getVegetarian(),
+                null, null, null, null);
+        if (cursor == null) {
+            Log.d(LOG_TAG, "cursor null");
+            return id;
+        }
+        cursor.moveToFirst();
+        int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_ID);
+        id = cursor.getInt(idIndex);
+        cursor.close();
+
+        return id;
     }
 }
 
