@@ -61,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        orders.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AllOrders.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

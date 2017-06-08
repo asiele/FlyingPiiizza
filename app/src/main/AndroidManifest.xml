@@ -42,6 +42,10 @@
         <activity
             android:name=".DishInformation"
             android:label="@string/title_activity_dish_information"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AllOrders"
+            android:label="@string/title_activity_all_orders"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
