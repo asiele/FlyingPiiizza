@@ -251,10 +251,10 @@ public class DishDataSource {
     public int getIdByDish(Dish dish) {
         int id = -1;
         Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME,
-                DISHES_COLUMNS, DishDbHelper.DB_TABLE_DISHES_COL_NAME + "=" + dish.getName() + ", "
-                + DishDbHelper.DB_TABLE_DISHES_COL_PRICE + "=" + dish.getPrice() + ", " +
-                        DishDbHelper.DB_TABLE_DISHES_COL_DISHTYPE + "=" + dish.getDishtype() + "," +
-                DishDbHelper.DB_TABLE_DISHES_COL_VEGETARIAN + "=" + dish.getVegetarian(),
+                DISHES_COLUMNS, DishDbHelper.DB_TABLE_DISHES_COL_NAME + "=\"" + dish.getName() + "\" AND "
+                + DishDbHelper.DB_TABLE_DISHES_COL_PRICE + "=\"" + dish.getPrice() + "\" AND  " +
+                        DishDbHelper.DB_TABLE_DISHES_COL_DISHTYPE + "=\"" + dish.getDishtype() + "\" AND  " +
+                DishDbHelper.DB_TABLE_DISHES_COL_VEGETARIAN + "=\"" + dish.getVegetarian() + "\";",
                 null, null, null, null);
         if (cursor == null) {
             Log.d(LOG_TAG, "cursor null");
