@@ -73,7 +73,7 @@ public class AllDishesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent intent = new Intent(AllDishesActivity.this, DishInformation.class);
-                intent.putExtra("name", position);
+                intent.putExtra("position", position);
                 startActivity(intent);
             }
         });

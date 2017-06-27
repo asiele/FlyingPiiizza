@@ -267,5 +267,18 @@ public class DishDataSource {
 
         return id;
     }
+
+    //This method deletes a Dish and all ingredients of this Dish
+    public void deleteDishByID(int id) {
+        database.delete(DishDbHelper.DB_TABLE_INGREDIENTS_NAME,
+                DishDbHelper.DB_TABLE_INGREDIENTS_COL_DISH_ID
+                        + "=\"" + id + "\"", null);
+
+        database.delete(DishDbHelper.DB_TABLE_DISHES_NAME,
+                DishDbHelper.DB_TABLE_DISHES_COL_ID
+                        + "=\"" + id + "\"", null);
+
+        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id);
+    }
 }
 

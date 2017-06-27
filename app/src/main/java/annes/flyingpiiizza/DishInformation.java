@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,7 +21,9 @@ import annes.flyingpiiizza.dishesdb.DishDataSource;
 
 public class DishInformation extends AppCompatActivity {
 
+    private static final String LOG_TAG = DishDataSource.class.getSimpleName();
     private Button back;
+    private Button delete;
     private TextView name;
     private TextView price;
     private TextView dishType;
@@ -40,6 +43,8 @@ public class DishInformation extends AppCompatActivity {
 
         back = (Button) findViewById(R.id.buttonBack);
         list = (ListView) findViewById(R.id.listOfIngredientNames);
+        delete = (Button) findViewById(R.id.buttonDelete);
+
 
         back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -75,7 +80,7 @@ public class DishInformation extends AppCompatActivity {
         if(extras == null) {
 
         } else {
-            position = (int) extras.get("name");
+            position = (int) extras.get("position");
         }
 
         dataSource = new DishDataSource(this);
@@ -99,7 +104,17 @@ public class DishInformation extends AppCompatActivity {
         final ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_ingredient, ingredients);
         list.setAdapter(adapter);
 
+        delete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.d(LOG_TAG, "Abc");
+                dataSource.deleteDishByID(thisID);
+                finish();
+            }
+        });
+
         dataSource.close();
+
 
     }
 }
