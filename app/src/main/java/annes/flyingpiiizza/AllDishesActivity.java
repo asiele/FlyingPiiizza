@@ -56,6 +56,12 @@ public class AllDishesActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        showAllDishes(); // Refresh the dish list every time the view is shown in case the list changed
+    }
+
     private void showAllDishes() {
         dataSource = new DishDataSource(this);
 

@@ -107,7 +107,7 @@ public class DishInformation extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.d(LOG_TAG, "Abc");
+                dataSource.open();
                 dataSource.deleteDishByID(thisID);
                 finish();
             }
