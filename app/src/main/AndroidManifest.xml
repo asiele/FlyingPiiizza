@@ -40,7 +40,7 @@
             android:label="Flying Piiizza"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".DishInformation"
+            android:name=".DishInformationActivity"
             android:label="@string/title_activity_dish_information"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

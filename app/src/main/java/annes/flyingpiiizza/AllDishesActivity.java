@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.Button;
 
 import annes.flyingpiiizza.dishesdb.DishDataSource;
@@ -78,7 +77,7 @@ public class AllDishesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Intent intent = new Intent(AllDishesActivity.this, DishInformation.class);
+                Intent intent = new Intent(AllDishesActivity.this, DishInformationActivity.class);
                 intent.putExtra("position", position);
                 startActivity(intent);
             }

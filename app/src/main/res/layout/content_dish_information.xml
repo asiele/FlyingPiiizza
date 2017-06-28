@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="annes.flyingpiiizza.DishInformation"
+    tools:context="annes.flyingpiiizza.DishInformationActivity"
     tools:showIn="@layout/activity_dish_information">
 
     <ScrollView

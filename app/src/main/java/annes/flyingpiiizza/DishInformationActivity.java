@@ -19,7 +19,7 @@ import java.util.List;
 
 import annes.flyingpiiizza.dishesdb.DishDataSource;
 
-public class DishInformation extends AppCompatActivity {
+public class DishInformationActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = DishDataSource.class.getSimpleName();
     private Button back;

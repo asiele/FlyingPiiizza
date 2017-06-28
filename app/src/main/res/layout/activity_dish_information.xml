@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="annes.flyingpiiizza.DishInformation">
+    tools:context="annes.flyingpiiizza.DishInformationActivity">
 
     <include layout="@layout/content_dish_information"
         android:id="@+id/include" />
