@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="annes.flyingpiiizza.createOrder"
+    tools:showIn="@layout/activity_create_order">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="0dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="0dp">
+
+            <TextView
+                android:id="@+id/textViewOrders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:fontFamily="casual"
+                android:text="Neue Bestellung"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/orderName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Name der Bestellung"
+                android:inputType="textPersonName"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/textViewOrders"
+                android:layout_marginTop="7dp"/>
+
+            <TextView
+                android:id="@+id/ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gerichte"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="25sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/orderName"
+                android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/dishNameSearch"
+                    android:layout_width = "wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Name"
+                    android:inputType="textPersonName"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="left"
+                    android:layout_weight = "1"
+                    android:layout_below="@id/ingredients"/>
+
+
+            <ListView
+                android:id="@+id/listOfDishNames"
+                android:layout_width="250dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/dishNameSearch"
+                android:layout_marginTop="10dp" />
+
+            <Button
+                android:id="@+id/resetDishes"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:text="Gerichte zurücksetzten"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/listOfDishNames"
+                android:layout_marginTop="5dp"
+                android:textSize="12dp"/>
+
+
+            <Button
+                android:id="@+id/createDish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Erstellen"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/ingredients"
+                android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@+id/ingredients" />
+
+            <Button
+                android:id="@+id/buttonBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zurück"
+                android:layout_below="@id/resetDishes"
+                android:layout_toRightOf="@id/createDish"
+                android:layout_marginLeft="80dp"/>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline2"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+</android.support.constraint.ConstraintLayout>
