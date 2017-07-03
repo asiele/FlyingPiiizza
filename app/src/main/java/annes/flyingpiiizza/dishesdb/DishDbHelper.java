@@ -39,7 +39,7 @@ public class DishDbHelper extends SQLiteOpenHelper {
     public static final String SQL_CREATE_TABLE_DISHES = String.format(
             "CREATE TABLE %s (" +
                     "%s INTEGER PRIMARY KEY AUTOINCREMENT," +        // id
-                    "%s TEXT NOT NULL," +                            // name
+                    "%s TEXT NOT NULL UNIQUE," +                       // name
                     "%s TEXT," +                                      // dish type
                     "%s INTEGER NOT NULL," +                         // price
                     "%s TEXT NOT NULL" +                             // vegetarian
