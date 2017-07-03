@@ -28,6 +28,14 @@ public class DishDbHelper extends SQLiteOpenHelper {
     public static final String DB_TABLE_INGREDIENTS_COL_NAME = "name";
     public static final String DB_TABLE_INGREDIENTS_COL_DISH_ID = "dishid";
 
+    public static final String DB_TABLE_ORDERS_NAME = "orders_table";
+    public static final String DB_TABLE_ORDERS_COL_ID = "_id";
+    public static final String DB_TABLE_ORDERS_COL_NAME = "name";
+
+    public static final String DB_TABLE_ORDERS_DISHES_RELATION_NAME = "orders_dishes_relation_table";
+    public static final String DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID = "dish_id";
+    public static final String DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID = "order_id";
+
     public static final String SQL_CREATE_TABLE_DISHES = String.format(
             "CREATE TABLE %s (" +
                     "%s INTEGER PRIMARY KEY AUTOINCREMENT," +        // id
@@ -53,6 +61,24 @@ public class DishDbHelper extends SQLiteOpenHelper {
             DB_TABLE_INGREDIENTS_COL_ID,
             DB_TABLE_INGREDIENTS_COL_NAME,
             DB_TABLE_INGREDIENTS_COL_DISH_ID);
+
+    public static final String SQL_CREATE_TABLE_ORDERS = String.format(
+            "CREATE TABLE %s (" +
+                    "%s INTEGER PRIMARY KEY AUTOINCREMENT," +       // id
+                    "%s TEXT NOT NULL," +                           // name
+                    ")",
+            DB_TABLE_ORDERS_NAME,
+            DB_TABLE_ORDERS_COL_ID,
+            DB_TABLE_ORDERS_COL_NAME);
+
+    public static final String SQL_CREATE_TABLE_ORDERS_DISHES_RELATION = String.format(
+            "CREATE TABLE %s (" +
+                    "%s INTEGER NOT NULL," +       // id dish
+                    "%s INTEGER NOT NULL," +       // id order
+                    ")",
+            DB_TABLE_ORDERS_DISHES_RELATION_NAME,
+            DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID,
+            DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID);
 
 
     public DishDbHelper(Context context) {
@@ -95,6 +121,10 @@ public class DishDbHelper extends SQLiteOpenHelper {
             db.execSQL(SQL_CREATE_TABLE_DISHES);
             Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_TABLE_INGREDIENTS + " angelegt.");
             db.execSQL(SQL_CREATE_TABLE_INGREDIENTS);
+            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_TABLE_ORDERS + " angelegt.");
+            db.execSQL(SQL_CREATE_TABLE_ORDERS);
+            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_TABLE_ORDERS_DISHES_RELATION + " angelegt.");
+            db.execSQL(SQL_CREATE_TABLE_ORDERS_DISHES_RELATION);
         }
         catch (Exception ex) {
             Log.e(LOG_TAG, "Fehler beim Anlegen der Tabelle: " + ex.getMessage());
