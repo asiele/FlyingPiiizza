@@ -1,5 +1,8 @@
 package annes.flyingpiiizza;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -91,7 +94,7 @@ public class CreateDishActivity extends AppCompatActivity {
                 return true;
             }
         });
-
+        final Context context = this;
         createButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -110,12 +113,29 @@ public class CreateDishActivity extends AppCompatActivity {
                         new ArrayList<String>()
                 );
 
-                storeDishToDb(newDish);
-                if(ingredientList.size() > 0) {
-                    storeIngredientsToDb(ingredientList, newDish);
+                if (storeDishToDb(newDish)) {
+                    if (ingredientList.size() > 0) {
+                        storeIngredientsToDb(ingredientList, newDish);
+                        finish();
+                    }
+                } else {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                    builder1.setMessage("Ein Gericht mit diesem Namen existiert bereits, bitte einen anderen Namen wählen.");
+                    builder1.setCancelable(true);
+                    builder1.setNegativeButton(
+                            "Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+
                 }
 
-                finish();
+
             }
         });
 
@@ -180,16 +200,18 @@ public class CreateDishActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void storeDishToDb(Dish dish) {
+    private boolean storeDishToDb(Dish dish) {
+        boolean returnValue;
         dataSource = new DishDataSource(this);
 
         dataSource.open();
-        dataSource.storeDish(dish);
+        returnValue = dataSource.storeDish(dish);
 
         Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
         showAllListEntries();
 
         dataSource.close();
+        return returnValue;
     }
 
     private void storeIngredientsToDb(ArrayList<String> ingredients, Dish dish) {

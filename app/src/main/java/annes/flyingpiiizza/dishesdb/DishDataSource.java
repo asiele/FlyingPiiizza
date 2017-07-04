@@ -105,34 +105,14 @@ public class DishDataSource {
     }
 
     //Stores the given Dish in the Database
-    public void storeDish(Dish dish) {
+    public boolean storeDish(Dish dish) {
         //TODO
 
         if (createDish(dish.getName(), dish.getDishtype(), dish.getPrice(), dish.getVegetarian()) == null)
         {
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-            builder1.setMessage("A dish with this name already exists. Please choose another name.");
-            builder1.setCancelable(true);
-
-            builder1.setPositiveButton(
-                    "Yes",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-
-            builder1.setNegativeButton(
-                    "No",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-
-            AlertDialog alert11 = builder1.create();
-            alert11.show();
+            return false;
         }
+        return true;
     }
 
     //This Method stores the Ingredients of a given Dish in the database
