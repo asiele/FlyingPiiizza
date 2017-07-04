@@ -116,8 +116,8 @@ public class CreateDishActivity extends AppCompatActivity {
                 if (storeDishToDb(newDish)) {
                     if (ingredientList.size() > 0) {
                         storeIngredientsToDb(ingredientList, newDish);
-                        finish();
                     }
+                    finish();
                 } else {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
                     builder1.setMessage("Ein Gericht mit diesem Namen existiert bereits, bitte einen anderen Namen wählen.");
