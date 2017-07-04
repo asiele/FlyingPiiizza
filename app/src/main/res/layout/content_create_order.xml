@@ -75,13 +75,20 @@
                     android:layout_weight = "1"
                     android:layout_below="@id/ingredients"/>
 
+            <ListView
+                android:id="@+id/proposals"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/dishNameSearch"
+                android:layout_marginTop="0dp" />
 
             <ListView
                 android:id="@+id/listOfDishNames"
                 android:layout_width="250dp"
                 android:layout_height="200dp"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/dishNameSearch"
+                android:layout_below="@id/proposals"
                 android:layout_marginTop="10dp" />
 
             <Button
@@ -96,7 +103,7 @@
 
 
             <Button
-                android:id="@+id/createDish"
+                android:id="@+id/createOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Erstellen"
@@ -111,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:text="Zurück"
                 android:layout_below="@id/resetDishes"
-                android:layout_toRightOf="@id/createDish"
+                android:layout_toRightOf="@id/createOrder"
                 android:layout_marginLeft="80dp"/>
 
 
