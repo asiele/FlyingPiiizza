@@ -280,5 +280,29 @@ public class DishDataSource {
 
         Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id);
     }
+
+    //Search Query method
+    public List<Dish> getAllDishesByQuery(String query) {
+        List<Dish> dishList = new ArrayList<>();
+
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME,
+                DISHES_COLUMNS, DishDbHelper.DB_TABLE_DISHES_COL_NAME + " LIKE '" + query + "%' OR "
+                + DishDbHelper.DB_TABLE_DISHES_COL_NAME + " LIKE '% " + query + "%'",
+                null, null, null, null);
+
+        cursor.moveToFirst();
+        Dish dish;
+
+        while(!cursor.isAfterLast()) {
+            dish = cursorToDish(cursor);
+            dishList.add(dish);
+            Log.d(LOG_TAG, ", Inhalt: " + dish.toString());
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return dishList;
+    }
 }
 
