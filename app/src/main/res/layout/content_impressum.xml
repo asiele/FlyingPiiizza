@@ -72,7 +72,7 @@
         android:id="@+id/textViewUrheberrecht"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Diese App unterliegt dem Urheberrecht. Die Vervielfältigung, Bearbeitung und Verbreitung darf nur unter vorheriger schriftlicher Zustimmung der Urheber erfolgen."
+        android:text="Diese App unterliegt dem Urheberrecht. Die Vervielfältigung, Bearbeitung und Verbreitung darf nur unter vorheriger Zustimmung der Urheber erfolgen."
         android:textAlignment="center"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
