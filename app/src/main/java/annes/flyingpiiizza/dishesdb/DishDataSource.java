@@ -1,7 +1,9 @@
 package annes.flyingpiiizza.dishesdb;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -45,12 +47,16 @@ public class DishDataSource {
             DishDbHelper.DB_TABLE_INGREDIENTS_COL_NAME
     };
 
+    private Context context;
+
 
     //Constructor
     public DishDataSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
         dbHelper = new DishDbHelper(context);
+        this.context = context;
     }
+
 
     //Opens the Database
     public void open() {
@@ -77,26 +83,56 @@ public class DishDataSource {
 
         Log.d(LOG_TAG, "values put");
 
-        long insertId = database.insert(DishDbHelper.DB_TABLE_DISHES_NAME, null, values);
+        try {
+            long insertId = database.insert(DishDbHelper.DB_TABLE_DISHES_NAME, null, values);
+            Log.d(LOG_TAG, "inserted");
 
-        Log.d(LOG_TAG, "inserted");
+            Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME, DISHES_COLUMNS,
+                    DishDbHelper.DB_TABLE_DISHES_COL_ID + "=" + insertId, null, null, null, null);
 
-        Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME, DISHES_COLUMNS,
-                DishDbHelper.DB_TABLE_DISHES_COL_ID + "=" + insertId, null, null, null, null);
+            if (cursor == null) Log.d(LOG_TAG, "cursor null");
+            cursor.moveToFirst();
+            Dish dish = cursorToDish(cursor);
+            cursor.close();
 
-        if (cursor == null) Log.d(LOG_TAG, "cursor null");
-        cursor.moveToFirst();
-        Dish dish = cursorToDish(cursor);
-        cursor.close();
+            Log.d(LOG_TAG, "cursor closed");
+            return dish;
+        } catch (Exception e) {
+            return null;
+        }
 
-        Log.d(LOG_TAG, "cursor closed");
-        return dish;
+
     }
 
     //Stores the given Dish in the Database
     public void storeDish(Dish dish) {
         //TODO
-        createDish(dish.getName(), dish.getDishtype(), dish.getPrice(), dish.getVegetarian());
+
+        if (createDish(dish.getName(), dish.getDishtype(), dish.getPrice(), dish.getVegetarian()) == null)
+        {
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+            builder1.setMessage("A dish with this name already exists. Please choose another name.");
+            builder1.setCancelable(true);
+
+            builder1.setPositiveButton(
+                    "Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            builder1.setNegativeButton(
+                    "No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
     }
 
     //This Method stores the Ingredients of a given Dish in the database
