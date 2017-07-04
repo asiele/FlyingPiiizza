@@ -84,7 +84,7 @@
                 android:layout_marginTop="0dp" />
 
             <ListView
-                android:id="@+id/listOfDishNames"
+                android:id="@+id/listOfDishes"
                 android:layout_width="250dp"
                 android:layout_height="200dp"
                 android:layout_centerHorizontal="true"
@@ -97,9 +97,55 @@
                 android:layout_height="37dp"
                 android:text="Gerichte zurücksetzten"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/listOfDishNames"
+                android:layout_below="@id/listOfDishes"
                 android:layout_marginTop="5dp"
                 android:textSize="12dp"/>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/priceOrderInfoLinearLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/resetDishes"
+                android:layout_marginTop="7dp">
+
+                <TextView
+                    android:id="@+id/priceText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Gesammter Preis:"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/priceOrderInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/priceText"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/JBtext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/priceDishInfo"
+                    android:text="JBs"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
 
 
             <Button
@@ -117,7 +163,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Zurück"
-                android:layout_below="@id/resetDishes"
+                android:layout_below="@id/priceOrderInfoLinearLayout"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@id/createOrder"
                 android:layout_marginLeft="80dp"/>
 

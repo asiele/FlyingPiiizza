@@ -321,6 +321,7 @@ public class DishDataSource {
         return dishList;
     }
 
+    //This Method returns the ID of a dish by its name
     public Integer getIdByDishName(String name) {
         List<Integer> idList = new ArrayList<>();
 
