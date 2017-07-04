@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,30 @@ public class CreateOrder extends AppCompatActivity {
         createOrder.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(orderName.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Bitte geben Sie ihrer Bestellung noch einen Namen!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(orderedDishes.size() == 0) {
+                    Toast.makeText(getApplicationContext(), "Ihre Bestellung sollte mindestens ein Gericht enthalten!", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
+                dataSource.open();
+                long id = dataSource.createOrder(orderName.getText().toString());
+                if(id == -1) {
+                    Toast.makeText(getApplicationContext(), "Etwas beim Anlegen der Bestellung ist schief gelaufen!", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                for(int i = 0; i < orderedDishes.size(); i++) {
+                    boolean ok = dataSource.createOrderDishRelation((int) id,
+                            dataSource.getIdByDishName(orderedDishes.get(i).getName()));
+                    if(!ok) {
+                        Toast.makeText(getApplicationContext(), "Etwas beim Einfügen der bestellten Gerichte ist falsch gelaufen!", Toast.LENGTH_LONG).show();
+                    }
+                }
+                dataSource.close();
+                finish();
             }
         });
 

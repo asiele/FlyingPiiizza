@@ -115,6 +115,38 @@ public class DishDataSource {
         return true;
     }
 
+    public long createOrder(String name) {
+        assert(name != null);
+        ContentValues values = new ContentValues();
+        values.put(DishDbHelper.DB_TABLE_ORDERS_COL_NAME, name);
+        Log.d(LOG_TAG, "values put");
+
+        long id = -1;
+        try {
+            id = database.insert(DishDbHelper.DB_TABLE_ORDERS_NAME, null, values);
+            Log.d(LOG_TAG, "inserted");
+        } catch (Exception e) {
+            return -1;
+        }
+        return id;
+    }
+
+    public boolean createOrderDishRelation(Integer orderID, Integer dishID) {
+        assert(orderID != null && dishID != null);
+        ContentValues values = new ContentValues();
+        values.put(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID, dishID);
+        values.put(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID, orderID);
+        Log.d(LOG_TAG, "values put");
+
+        try {
+            database.insert(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_NAME, null, values);
+            Log.d(LOG_TAG, "inserted");
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
     //This Method stores the Ingredients of a given Dish in the database
     public void storeIngredients(ArrayList<String> ingredients, Dish dish) {
         int id = getIdByDish(dish);
