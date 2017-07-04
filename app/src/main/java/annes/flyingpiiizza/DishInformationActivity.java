@@ -75,19 +75,18 @@ public class DishInformationActivity extends AppCompatActivity {
             }
         });
 
-        int position = -1;
+        String dishName = "";
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
 
         } else {
-            position = (int) extras.get("position");
+            dishName = (String) extras.get("nameExtra");
         }
 
         dataSource = new DishDataSource(this);
         dataSource.open();
 
-        List<Integer> idList = dataSource.getAllIDs();
-        thisID = idList.get(position);
+        thisID = dataSource.getIdByDishName(dishName);
         Dish dish = dataSource.getDishByID(thisID);
 
         name = (TextView) findViewById(R.id.nameDishInfo);

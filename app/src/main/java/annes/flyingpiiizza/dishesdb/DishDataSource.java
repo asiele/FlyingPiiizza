@@ -320,5 +320,28 @@ public class DishDataSource {
 
         return dishList;
     }
+
+    public Integer getIdByDishName(String name) {
+        List<Integer> idList = new ArrayList<>();
+
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME,
+                ID_DISHES_COLUMNS, DishDbHelper.DB_TABLE_DISHES_COL_NAME + " = '" + name + "'",
+                null, null, null, null);
+
+        cursor.moveToFirst();
+        int currentID;
+        while(!cursor.isAfterLast()) {
+            int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_ID);
+            currentID = cursor.getInt(idIndex);
+            idList.add(currentID);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        if(idList.size() != 1) {
+            return -1;
+        } else {
+            return idList.get(0);
+        }
+    }
 }
 
