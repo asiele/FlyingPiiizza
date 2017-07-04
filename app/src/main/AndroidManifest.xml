@@ -50,6 +50,10 @@
         <activity
             android:name=".CreateOrder"
             android:label="@string/title_activity_create_order"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".OrderInformation"
+            android:label="@string/title_activity_order_information"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
