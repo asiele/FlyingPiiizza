@@ -320,15 +320,20 @@ public class DishDataSource {
 
     //This method deletes a Dish and all ingredients of this Dish
     public void deleteDishByID(int id) {
-        database.delete(DishDbHelper.DB_TABLE_INGREDIENTS_NAME,
-                DishDbHelper.DB_TABLE_INGREDIENTS_COL_DISH_ID
-                        + "=\"" + id + "\"", null);
 
-        database.delete(DishDbHelper.DB_TABLE_DISHES_NAME,
-                DishDbHelper.DB_TABLE_DISHES_COL_ID
-                        + "=\"" + id + "\"", null);
+        if () {
+            database.delete(DishDbHelper.DB_TABLE_INGREDIENTS_NAME,
+                    DishDbHelper.DB_TABLE_INGREDIENTS_COL_DISH_ID
+                            + "=\"" + id + "\"", null);
 
-        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id);
+            database.delete(DishDbHelper.DB_TABLE_DISHES_NAME,
+                    DishDbHelper.DB_TABLE_DISHES_COL_ID
+                            + "=\"" + id + "\"", null);
+
+            Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id);
+        } else {
+
+        }
     }
 
     //Search Query method
@@ -468,6 +473,31 @@ public class DishDataSource {
         Integer[] totalCostArray = new Integer[totalCostList.size()];
         totalCostList.toArray(totalCostArray);
         return totalCostArray;
+    }
+
+    public boolean deleteOrderById(int id) {
+        database.delete(DishDbHelper.DB_TABLE_INGREDIENTS_NAME,
+                DishDbHelper.DB_TABLE_INGREDIENTS_COL_DISH_ID
+                        + "=\"" + id + "\"", null);
+
+        database.delete(DishDbHelper.DB_TABLE_DISHES_NAME,
+                DishDbHelper.DB_TABLE_DISHES_COL_ID
+                        + "=\"" + id + "\"", null);
+
+        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id);
+
+    }
+
+    public String getNameOfOrderById(int id) {
+        String[] nameColumn = {DishDbHelper.DB_TABLE_ORDERS_COL_NAME};
+        String name = "";
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_ORDERS_NAME,
+                nameColumn, DishDbHelper.DB_TABLE_ORDERS_COL_ID + " = " + id, null, null, null, null);
+        cursor.moveToFirst();
+        int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_ORDERS_COL_NAME);
+        name = cursor.getString(idIndex);
+        cursor.close();
+        return name;
     }
 }
 
