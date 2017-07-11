@@ -120,7 +120,7 @@ public class OrderInformation extends AppCompatActivity {
                                 }
 
                                 updateOrderListView();
-
+                                sumPrice.setText(Integer.toString(dataSource.calculateOrderCost(id)));
                                 dialog.cancel();
                             }
                         });
@@ -138,11 +138,13 @@ public class OrderInformation extends AppCompatActivity {
             }
         });
 
-        //Noch nicht getestet
         buttonDelete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                dataSource.open();
                 dataSource.deleteOrderById(id);
+                dataSource.close();
+                finish();
             }
         });
 
