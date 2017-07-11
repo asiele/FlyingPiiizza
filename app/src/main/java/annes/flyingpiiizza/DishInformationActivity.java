@@ -1,22 +1,21 @@
 package annes.flyingpiiizza;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import annes.flyingpiiizza.dishesdb.DishDataSource;
 
@@ -33,6 +32,7 @@ public class DishInformationActivity extends AppCompatActivity {
     private int thisID;
     private ListView list;
     private ArrayList ingredients;
+    private ImageView picture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,7 +45,7 @@ public class DishInformationActivity extends AppCompatActivity {
         back = (Button) findViewById(R.id.buttonBack);
         list = (ListView) findViewById(R.id.listOfIngredientNames);
         delete = (Button) findViewById(R.id.buttonDelete);
-
+        picture = (ImageView) findViewById(R.id.picture);
 
         back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -115,6 +115,13 @@ public class DishInformationActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        File img = new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + thisID + ".jpg");
+
+        if (img.exists()) {
+            picture.setImageBitmap(BitmapFactory.decodeFile(img.getAbsolutePath()));
+        }
 
         dataSource.close();
 
