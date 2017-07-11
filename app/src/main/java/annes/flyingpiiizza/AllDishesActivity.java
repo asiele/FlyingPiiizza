@@ -1,7 +1,6 @@
 package annes.flyingpiiizza;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import annes.flyingpiiizza.dishesdb.DishDataSource;
-import annes.flyingpiiizza.dishesdb.DishDbHelper;
 
 
 public class AllDishesActivity extends AppCompatActivity {

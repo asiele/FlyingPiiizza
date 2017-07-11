@@ -25,6 +25,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -221,10 +226,37 @@ public class CreateDishActivity extends AppCompatActivity {
         return dish != null;
     }
 
+    private void copyFile(File sourceFile, File destFile) throws IOException {
+        if (!sourceFile.exists()) {
+            return;
+        }
+
+        FileChannel source = null;
+        FileChannel destination = null;
+        source = new FileInputStream(sourceFile).getChannel();
+        destination = new FileOutputStream(destFile).getChannel();
+        if (destination != null && source != null) {
+            destination.transferFrom(source, 0, source.size());
+        }
+        if (source != null) {
+            source.close();
+        }
+        if (destination != null) {
+            destination.close();
+        }
+
+    }
+
     private boolean storeImage(int id) {
         if (pictureTaken) {
-            pictureFile = new File(getApplicationContext().getExternalCacheDir().getAbsoluteFile() + "/newDishImage.jpg");
-            pictureFile.renameTo(new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + id + ".jpg"));
+            try {
+                pictureFile = new File(getApplicationContext().getExternalCacheDir().getAbsoluteFile() + "/newDishImage.jpg");
+
+                copyFile(pictureFile, new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + id + ".jpg"));
+                pictureFile.delete();
+            } catch(Exception e) {
+                Log.d(LOG_TAG, e.getMessage());
+            }
 
             Log.d(LOG_TAG, "Moved image to " + getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + id + ".jpg");
             return true;
