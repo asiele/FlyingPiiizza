@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import annes.flyingpiiizza.Dish;
+import annes.flyingpiiizza.Order;
 
 /**
  * Created by Johanna on 28.04.2017.
@@ -47,6 +48,13 @@ public class DishDataSource {
             DishDbHelper.DB_TABLE_INGREDIENTS_COL_NAME
     };
 
+    private static final String[] ID_ = {
+            DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID,
+
+
+    };
+
+
     private Context context;
 
 
@@ -72,7 +80,7 @@ public class DishDataSource {
 
     //Creates a dish with the given values and stores it in the database
     public Dish createDish(String name, String dishtype, int price, String vegetarian) {
-        assert(name != null && price != 0);
+        assert (name != null && price != 0);
 
         ContentValues values = new ContentValues();
 
@@ -108,15 +116,14 @@ public class DishDataSource {
     public boolean storeDish(Dish dish) {
         //TODO
 
-        if (createDish(dish.getName(), dish.getDishtype(), dish.getPrice(), dish.getVegetarian()) == null)
-        {
+        if (createDish(dish.getName(), dish.getDishtype(), dish.getPrice(), dish.getVegetarian()) == null) {
             return false;
         }
         return true;
     }
 
     public long createOrder(String name) {
-        assert(name != null);
+        assert (name != null);
         ContentValues values = new ContentValues();
         values.put(DishDbHelper.DB_TABLE_ORDERS_COL_NAME, name);
         Log.d(LOG_TAG, "values put");
@@ -132,7 +139,7 @@ public class DishDataSource {
     }
 
     public boolean createOrderDishRelation(Integer orderID, Integer dishID) {
-        assert(orderID != null && dishID != null);
+        assert (orderID != null && dishID != null);
         ContentValues values = new ContentValues();
         values.put(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID, dishID);
         values.put(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID, orderID);
@@ -150,7 +157,7 @@ public class DishDataSource {
     //This Method stores the Ingredients of a given Dish in the database
     public void storeIngredients(ArrayList<String> ingredients, Dish dish) {
         int id = getIdByDish(dish);
-        for(int i = 0; i < ingredients.size(); i++) {
+        for (int i = 0; i < ingredients.size(); i++) {
             ContentValues values = new ContentValues();
             values.put(DishDbHelper.DB_TABLE_INGREDIENTS_COL_NAME, ingredients.get(i));
             values.put(DishDbHelper.DB_TABLE_INGREDIENTS_COL_DISH_ID, id);
@@ -162,9 +169,9 @@ public class DishDataSource {
 
     //Method returnes the Dish, the cursor points to
     public Dish cursorToDish(Cursor cursor) {
-        assert(cursor != null);
+        assert (cursor != null);
         int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_ID);
-        int idName = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_NAME );
+        int idName = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_NAME);
         int idDishtype = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_DISHTYPE);
         int idPrice = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_PRICE);
         int idVegetarian = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_VEGETARIAN);
@@ -189,7 +196,7 @@ public class DishDataSource {
         cursor.moveToFirst();
         Dish dish;
 
-        while(!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
             dish = cursorToDish(cursor);
             dishList.add(dish);
             Log.d(LOG_TAG, ", Inhalt: " + dish.toString());
@@ -212,7 +219,7 @@ public class DishDataSource {
         cursor.moveToFirst();
         String ingredient;
 
-        while(!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
             int index = cursor.getColumnIndex(DishDbHelper.DB_TABLE_INGREDIENTS_COL_NAME);
             ingredient = cursor.getString(index);
             ingredients.add(ingredient);
@@ -227,11 +234,11 @@ public class DishDataSource {
         List<Integer> idList = new ArrayList<>();
 
         Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME,
-        ID_DISHES_COLUMNS, null, null, null, null, null);
+                ID_DISHES_COLUMNS, null, null, null, null, null);
 
         cursor.moveToFirst();
         int currentID;
-        while(!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
             int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_ID);
             currentID = cursor.getInt(idIndex);
             idList.add(currentID);
@@ -245,7 +252,7 @@ public class DishDataSource {
     public String[] getAllDishesNamesAsStringArray() {
         String[] array = {};
         ArrayList<String> dishesNamesList = new ArrayList<>();
-        for (Dish dish: getAllDishes()) {
+        for (Dish dish : getAllDishes()) {
             dishesNamesList.add(dish.getName());
         }
         return dishesNamesList.toArray(array);
@@ -255,17 +262,17 @@ public class DishDataSource {
     public String[] getAllDishesTypesAsStringArray() {
         String[] array = {};
         ArrayList<String> dishesTypesList = new ArrayList<>();
-        for (Dish dish: getAllDishes()) {
+        for (Dish dish : getAllDishes()) {
             dishesTypesList.add(dish.getDishtype());
         }
         return dishesTypesList.toArray(array);
     }
 
     //All Dish Prices are returned as an Integer Array
-    public Integer[] getAllDishesPricesAsIntegerArray(){
+    public Integer[] getAllDishesPricesAsIntegerArray() {
         Integer[] array = {};
         ArrayList<Integer> dishesPriceList = new ArrayList<>();
-        for(Dish dish: getAllDishes()) {
+        for (Dish dish : getAllDishes()) {
             dishesPriceList.add(dish.getPrice());
         }
         return dishesPriceList.toArray(array);
@@ -275,7 +282,7 @@ public class DishDataSource {
     public String[] getAllDishesVegetarianAsStringArray() {
         String[] array = {};
         ArrayList<String> dishesVegetarianList = new ArrayList<>();
-        for (Dish dish: getAllDishes()) {
+        for (Dish dish : getAllDishes()) {
             dishesVegetarianList.add(dish.getVegetarian());
         }
         return dishesVegetarianList.toArray(array);
@@ -300,9 +307,9 @@ public class DishDataSource {
         int id = -1;
         Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME,
                 DISHES_COLUMNS, DishDbHelper.DB_TABLE_DISHES_COL_NAME + "=\"" + dish.getName() + "\" AND "
-                + DishDbHelper.DB_TABLE_DISHES_COL_PRICE + "=\"" + dish.getPrice() + "\" AND  " +
+                        + DishDbHelper.DB_TABLE_DISHES_COL_PRICE + "=\"" + dish.getPrice() + "\" AND  " +
                         DishDbHelper.DB_TABLE_DISHES_COL_DISHTYPE + "=\"" + dish.getDishtype() + "\" AND  " +
-                DishDbHelper.DB_TABLE_DISHES_COL_VEGETARIAN + "=\"" + dish.getVegetarian() + "\";",
+                        DishDbHelper.DB_TABLE_DISHES_COL_VEGETARIAN + "=\"" + dish.getVegetarian() + "\";",
                 null, null, null, null);
         if (cursor == null) {
             Log.d(LOG_TAG, "cursor null");
@@ -335,13 +342,13 @@ public class DishDataSource {
 
         Cursor cursor = database.query(DishDbHelper.DB_TABLE_DISHES_NAME,
                 DISHES_COLUMNS, DishDbHelper.DB_TABLE_DISHES_COL_NAME + " LIKE '" + query + "%' OR "
-                + DishDbHelper.DB_TABLE_DISHES_COL_NAME + " LIKE '% " + query + "%'",
+                        + DishDbHelper.DB_TABLE_DISHES_COL_NAME + " LIKE '% " + query + "%'",
                 null, null, null, null);
 
         cursor.moveToFirst();
         Dish dish;
 
-        while(!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
             dish = cursorToDish(cursor);
             dishList.add(dish);
             Log.d(LOG_TAG, ", Inhalt: " + dish.toString());
@@ -363,18 +370,52 @@ public class DishDataSource {
 
         cursor.moveToFirst();
         int currentID;
-        while(!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
             int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_ID);
             currentID = cursor.getInt(idIndex);
             idList.add(currentID);
             cursor.moveToNext();
         }
         cursor.close();
-        if(idList.size() != 1) {
+        if (idList.size() != 1) {
             return -1;
         } else {
             return idList.get(0);
         }
     }
+
+    public List<Dish> getAllDishesByOrderID(int orderId) {
+        List<Integer> dishesIds = new ArrayList<Integer>();
+        List<Dish> dishesList = new ArrayList<Dish>();
+        String[] dishIdColumn = { DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID };
+
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_NAME,
+               dishIdColumn, DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID
+        + " = " + orderId, null, null, null, null);
+
+        while (!cursor.isAfterLast()) {
+            int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID);
+            int id = cursor.getInt(idIndex);
+            dishesIds.add(id);
+        }
+
+        cursor.close();
+
+        for (int dishId: dishesIds) {
+            dishesList.add(getDishByID(dishId));
+        }
+        return dishesList;
+    }
+
+    public int calculateOrderCost(int id) {
+        List<Dish> dishList = getAllDishesByOrderID(id);
+        int orderCost = 0;
+        for (Dish dish: dishList) {
+            orderCost += dish.getPrice();
+        }
+        return orderCost;
+    }
 }
+
+
 
