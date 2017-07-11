@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -251,8 +252,28 @@ public class CreateDishActivity extends AppCompatActivity {
         if (pictureTaken) {
             try {
                 pictureFile = new File(getApplicationContext().getExternalCacheDir().getAbsoluteFile() + "/newDishImage.jpg");
+                File targetPictureFile = new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + id + ".jpg");
 
-                copyFile(pictureFile, new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + id + ".jpg"));
+                copyFile(pictureFile, targetPictureFile);
+
+                FileOutputStream out = null;
+                try {
+                    out = new FileOutputStream(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + id + "-thumb.jpg");
+                    ThumbnailUtils
+                            .extractThumbnail(BitmapFactory.decodeFile(pictureFile.getAbsolutePath()), 250, 250)
+                            .compress(Bitmap.CompressFormat.JPEG, 100, out);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (out != null) {
+                            out.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 pictureFile.delete();
             } catch(Exception e) {
                 Log.d(LOG_TAG, e.getMessage());

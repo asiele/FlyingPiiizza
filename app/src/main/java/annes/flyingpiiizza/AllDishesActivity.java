@@ -3,6 +3,7 @@ package annes.flyingpiiizza;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -79,10 +80,11 @@ public class AllDishesActivity extends AppCompatActivity {
 
         for (int i = 0; i < dishNames.length; i++) {
             int dishid = dataSource.getIdByDishName(dishNames[i]);
-            File img = new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + dishid + ".jpg");
+            File img = new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + dishid + "-thumb.jpg");
 
             if (img.exists()) {
-                images.add(BitmapFactory.decodeFile(img.getAbsolutePath()));
+                //images.add(null);
+                images.add(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(img.getAbsolutePath()), 50, 50));
             } else {
                 images.add(null);
             }
