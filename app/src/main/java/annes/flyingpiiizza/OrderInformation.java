@@ -43,7 +43,7 @@ public class OrderInformation extends AppCompatActivity {
     private Button buttonDelete;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_information);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -101,16 +101,17 @@ public class OrderInformation extends AppCompatActivity {
                         "Nein",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id__) {
-                                dataSource.deleteDishFromOrder(dataSource.getIdByDishName(allDishes.get(position).getName()), id);
-
                                 dialog.cancel();
                             }
                         });
                 builder1.setPositiveButton(
                         "Ja",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id_) {
+                            public void onClick(DialogInterface dialog, int id__) {
+                                dataSource.open();
                                 dataSource.deleteDishFromOrder(dataSource.getIdByDishName(allDishes.get(position).getName()), id);
+                                dataSource.close();
+
                                 dialog.cancel();
                             }
                         });
