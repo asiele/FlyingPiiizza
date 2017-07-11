@@ -337,6 +337,32 @@ public class DishDataSource {
         }
     }
 
+    public boolean deleteOrderById(int id) {
+        database.delete(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_NAME,
+                DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID
+                        + "=\"" + id + "\"", null);
+
+        database.delete(DishDbHelper.DB_TABLE_ORDERS_NAME,
+                DishDbHelper.DB_TABLE_ORDERS_COL_ID
+                        + "=\"" + id + "\"", null);
+
+        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id);
+
+    }
+
+    /*public boolean deleteOrderById(int id) {
+        database.delete(DishDbHelper.DB_TABLE_INGREDIENTS_NAME,
+                DishDbHelper.DB_TABLE_INGREDIENTS_COL_DISH_ID
+                        + "=\"" + id + "\"", null);
+
+        database.delete(DishDbHelper.DB_TABLE_DISHES_NAME,
+                DishDbHelper.DB_TABLE_DISHES_COL_ID
+                        + "=\"" + id + "\"", null);
+
+        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id);
+
+    }*/
+
     //Search Query method
     public List<Dish> getAllDishesByQuery(String query) {
         List<Dish> dishList = new ArrayList<>();
