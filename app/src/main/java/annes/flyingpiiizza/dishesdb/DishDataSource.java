@@ -461,7 +461,7 @@ public class DishDataSource {
     public Integer[] getAllOrderTotalCost() {
         List<Integer> totalCostList = new ArrayList<Integer>();
         for (Integer totalCost: getAllOrderIds()) {
-            totalCostList.add(totalCost);
+            totalCostList.add(calculateOrderCost(totalCost));
         }
         Integer[] totalCostArray = new Integer[totalCostList.size()];
         totalCostList.toArray(totalCostArray);
