@@ -112,6 +112,15 @@ public class OrderInformation extends AppCompatActivity {
                                 dataSource.deleteDishFromOrder(dataSource.getIdByDishName(allDishes.get(position).getName()), id);
                                 dataSource.close();
 
+                                for (int i = 0; i < allDishes.size(); i++) {
+                                    if (allDishes.get(i).getName().equals(allDishes.get(position).getName())) {
+                                        allDishes.remove(i);
+                                        break;
+                                    }
+                                }
+
+                                updateOrderListView();
+
                                 dialog.cancel();
                             }
                         });
