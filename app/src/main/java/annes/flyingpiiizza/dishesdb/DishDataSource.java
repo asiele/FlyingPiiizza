@@ -385,35 +385,41 @@ public class DishDataSource {
     }
 
     public List<Dish> getAllDishesByOrderID(int orderId) {
-        List<Integer> dishesIds = new ArrayList<Integer>();
-        List<Dish> dishesList = new ArrayList<Dish>();
-        String[] dishIdColumn = { DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID };
+        if (orderId == 0) {
+            List<Integer> dishesIds = new ArrayList<Integer>();
+            List<Dish> dishesList = new ArrayList<Dish>();
+            String[] dishIdColumn = {DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID};
 
-        Cursor cursor = database.query(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_NAME,
-               dishIdColumn, DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID
-        + " = " + orderId, null, null, null, null);
+            Cursor cursor = database.query(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_NAME,
+                    dishIdColumn, DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID
+                            + " = " + orderId, null, null, null, null);
 
-        while (!cursor.isAfterLast()) {
-            int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID);
-            int id = cursor.getInt(idIndex);
-            dishesIds.add(id);
-        }
+            while (!cursor.isAfterLast()) {
+                int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID);
+                int id = cursor.getInt(idIndex);
+                dishesIds.add(id);
+            }
 
-        cursor.close();
+            cursor.close();
 
-        for (int dishId: dishesIds) {
-            dishesList.add(getDishByID(dishId));
-        }
-        return dishesList;
+            for (int dishId : dishesIds) {
+                dishesList.add(getDishByID(dishId));
+            }
+            return dishesList;
+        } return null;
     }
 
     public int calculateOrderCost(int id) {
-        List<Dish> dishList = getAllDishesByOrderID(id);
-        int orderCost = 0;
-        for (Dish dish: dishList) {
-            orderCost += dish.getPrice();
+        if (id == 0) {
+            List<Dish> dishList = getAllDishesByOrderID(id);
+            int orderCost = 0;
+            for (Dish dish : dishList) {
+                orderCost += dish.getPrice();
+            }
+            return orderCost;
+        } else {
+            return 0;
         }
-        return orderCost;
     }
 
     public List<String> getAllOrderNames() {
