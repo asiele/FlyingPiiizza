@@ -5,8 +5,8 @@
     <string name="title_activity_impressum">Flying Piiizza</string>
     <string name="title_activity_create_dish">Flying Piiizza</string>
     <string name="title_activity_all_dishes">Flying Piiizza</string>
-    <string name="title_activity_dish_information">DishInformation</string>
-    <string name="title_activity_all_orders">AllOrders</string>
-    <string name="title_activity_create_order">createOrder</string>
-    <string name="title_activity_order_information">OrderInformation</string>
+    <string name="title_activity_dish_information">FlyingPiiizza</string>
+    <string name="title_activity_all_orders">FlyingPiiizza</string>
+    <string name="title_activity_create_order">FlyingPiiizza</string>
+    <string name="title_activity_order_information">FlyingPiiizza</string>
 </resources>
