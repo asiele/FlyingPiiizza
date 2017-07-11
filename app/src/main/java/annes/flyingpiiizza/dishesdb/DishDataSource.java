@@ -388,11 +388,13 @@ public class DishDataSource {
             Cursor cursor = database.query(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_NAME,
                     dishIdColumn, DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID
                             + " = " + orderId, null, null, null, null);
+            cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {
                 int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID);
                 int id = cursor.getInt(idIndex);
                 dishesIds.add(id);
+                cursor.moveToNext();
             }
 
             cursor.close();
@@ -422,11 +424,14 @@ public class DishDataSource {
         List<String> allOrderNames = new ArrayList<String>();
 
         Cursor cursor = database.query(DishDbHelper.DB_TABLE_ORDERS_NAME, nameOrderColumn, null, null, null, null, null);
+        cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_ORDERS_COL_NAME);
             String order = cursor.getString(idIndex);
             allOrderNames.add(order);
+            cursor.moveToNext();
         }
+        cursor.close();
 
         String[] allOrderNamesArray = new String[allOrderNames.size()];
         allOrderNames.toArray(allOrderNamesArray);
@@ -439,11 +444,14 @@ public class DishDataSource {
         List<Integer> allOrderIds = new ArrayList<Integer>();
 
         Cursor cursor = database.query(DishDbHelper.DB_TABLE_ORDERS_NAME, nameOrderColumn, null, null, null, null, null);
+        cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_ORDERS_COL_ID);
             Integer id = cursor.getInt(idIndex);
             allOrderIds.add(id);
+            cursor.moveToNext();
         }
+        cursor.close();
 
         Integer[] allOrderIdsInteger = new Integer[allOrderIds.size()];
         allOrderIds.toArray(allOrderIdsInteger);
