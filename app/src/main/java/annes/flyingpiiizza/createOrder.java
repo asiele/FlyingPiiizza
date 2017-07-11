@@ -7,7 +7,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,7 +25,7 @@ public class CreateOrder extends AppCompatActivity {
 
     private Button back;
     private ListView proposals;
-    private ListView orderList;
+    private ListView listOfDishes;
     private Button createOrder;
     private EditText orderName;
     private EditText dishNameSearch;
@@ -50,7 +49,7 @@ public class CreateOrder extends AppCompatActivity {
         orderName = (EditText) findViewById(R.id.orderName);
         dishNameSearch = (EditText) findViewById(R.id.dishNameSearch);
         priceOrderInfo = (TextView) findViewById(R.id.priceOrderInfo);
-        orderList = (ListView) findViewById(R.id.listOfDishes);
+        listOfDishes = (ListView) findViewById(R.id.listOfDishes);
         resetDishes = (Button) findViewById(R.id.resetDishes);
 
         dataSource = new DishDataSource(this);
@@ -144,7 +143,7 @@ public class CreateOrder extends AppCompatActivity {
             }
         });
 
-        orderList.setOnTouchListener(new ListView.OnTouchListener() {
+        listOfDishes.setOnTouchListener(new ListView.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
@@ -167,7 +166,6 @@ public class CreateOrder extends AppCompatActivity {
         });
 
         proposals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -176,6 +174,7 @@ public class CreateOrder extends AppCompatActivity {
                 proposals.setVisibility(View.INVISIBLE);
                 priceOrderInfo.setText(Integer.toString(calculateCosts()), null);
                 updateOrderListView();
+                GrowingListViewUtils.adaptListViewSize(proposals);
             }
         });
 
@@ -187,6 +186,7 @@ public class CreateOrder extends AppCompatActivity {
                 orderedDishes = new ArrayList<Dish>();
                 updateOrderListView();
                 priceOrderInfo.setText("0", null);
+                GrowingListViewUtils.adaptListViewSize(listOfDishes);
             }
         });
 
@@ -196,38 +196,24 @@ public class CreateOrder extends AppCompatActivity {
     private void searchDish() {
         dataSource.open();
 
-        queryList = dataSource.getAllDishesByQuery(dishNameSearch.getText().toString());
+        String searchQuery = dishNameSearch.getText().toString();
+
         List<String> nameList = new ArrayList<String>();
-        for(int i = 0; i < queryList.size(); i++) {
-            nameList.add(queryList.get(i).getName());
+
+        if (searchQuery.equals("")) {
+        } else {
+            queryList = dataSource.getAllDishesByQuery(searchQuery);
+            for(int i = 0; i < queryList.size(); i++) {
+                nameList.add(queryList.get(i).getName());
+            }
         }
+
         final ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_ingredient, nameList);
         proposals.setAdapter(adapter);
         dataSource.close();
         proposals.setVisibility(View.VISIBLE);
 
-        adaptProposalListSize();
-    }
-
-    private void adaptProposalListSize() {
-        ListAdapter listAdapter = proposals.getAdapter();
-        if (listAdapter == null) {
-
-            return;
-        }
-
-        int totalHeight = 0;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, proposals);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = proposals.getLayoutParams();
-        params.height = totalHeight
-                + (proposals.getDividerHeight() * (listAdapter.getCount() - 1));
-        proposals.setLayoutParams(params);
-        proposals.requestLayout();
+        GrowingListViewUtils.adaptListViewSize(proposals);
     }
 
     private int calculateCosts() {
@@ -250,7 +236,8 @@ public class CreateOrder extends AppCompatActivity {
         }
         CustomListAdapter adapter=new CustomListAdapter(this, dishNames, dishPrices, dishTypes,
                 imgrid);
-        orderList.setAdapter(adapter);
+        listOfDishes.setAdapter(adapter);
+        GrowingListViewUtils.adaptListViewSize(listOfDishes);
     }
 
 }

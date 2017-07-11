@@ -8,18 +8,30 @@
     tools:context="annes.flyingpiiizza.CreateOrder"
     tools:showIn="@layout/activity_create_order">
 
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline2"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="20dp" />
+
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="0dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginRight="0dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="0dp">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/textViewOrders"
@@ -39,77 +51,77 @@
                 android:id="@+id/orderName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/textViewOrders"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="7dp"
                 android:ems="10"
                 android:hint="Name der Bestellung"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
-                android:textSize="20sp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/textViewOrders"
-                android:layout_marginTop="7dp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/ingredients"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/orderName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
                 android:text="Gerichte"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textSize="25sp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/orderName"
-                android:layout_marginTop="10dp"/>
+                android:textSize="25sp" />
 
-                <EditText
-                    android:id="@+id/dishNameSearch"
-                    android:layout_width = "wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Name"
-                    android:inputType="textPersonName"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_gravity="left"
-                    android:layout_weight = "1"
-                    android:layout_below="@id/ingredients"/>
+            <EditText
+                android:id="@+id/dishNameSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ingredients"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="left"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:textAlignment="center"
+                android:textSize="20sp" />
 
             <ListView
                 android:id="@+id/proposals"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@id/dishNameSearch"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp" />
 
             <ListView
                 android:id="@+id/listOfDishes"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@id/proposals"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp" />
 
             <Button
                 android:id="@+id/resetDishes"
                 android:layout_width="wrap_content"
                 android:layout_height="37dp"
-                android:text="Gerichte zurücksetzten"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@id/listOfDishes"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:textSize="12dp"/>
+                android:text="Gerichte zurücksetzten"
+                android:textSize="12dp" />
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/priceOrderInfoLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/priceOrderInfoLinearLayout"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/resetDishes"
-                android:layout_marginTop="7dp">
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/priceText"
@@ -152,33 +164,24 @@
                 android:id="@+id/createOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Erstellen"
                 android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/ingredients"
                 android:layout_centerHorizontal="true"
-                android:layout_toEndOf="@+id/ingredients" />
+                android:layout_toEndOf="@+id/ingredients"
+                android:layout_toRightOf="@+id/ingredients"
+                android:text="Erstellen" />
 
             <Button
                 android:id="@+id/buttonBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Zurück"
                 android:layout_below="@id/priceOrderInfoLinearLayout"
+                android:layout_marginLeft="80dp"
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@id/createOrder"
-                android:layout_marginLeft="80dp"/>
+                android:text="Zurück" />
 
 
         </RelativeLayout>
     </ScrollView>
-
-    <android.support.constraint.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guideline2"
-        app:layout_constraintGuide_begin="20dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="20dp" />
 
 </android.support.constraint.ConstraintLayout>
