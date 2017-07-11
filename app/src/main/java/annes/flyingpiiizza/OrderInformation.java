@@ -92,7 +92,7 @@ public class OrderInformation extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                                    final int position, long id) {
+                                    final int position, long id_) {
 
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
                 builder1.setMessage("Möchten Sie das Gericht wirklich aus der Bestellung entfernen?");
@@ -107,7 +107,7 @@ public class OrderInformation extends AppCompatActivity {
                 builder1.setPositiveButton(
                         "Ja",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                            public void onClick(DialogInterface dialog, int id_) {
                                 dataSource.deleteDishFromOrder(dataSource.getIdByDishName(allDishes.get(position).getName()), id);
                                 dialog.cancel();
                             }
