@@ -49,6 +49,7 @@ public class CreateDishActivity extends AppCompatActivity {
     private Uri pictureURI;
     private Bitmap map;
     private CheckBox vegetarian;
+    private boolean pictureTaken;
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
     private DishDataSource dataSource;
@@ -72,6 +73,7 @@ public class CreateDishActivity extends AppCompatActivity {
         picture = (ImageView) findViewById(R.id.picture);
         takePicture = (Button) findViewById(R.id.takePicture);
         vegetarian = (CheckBox) findViewById(R.id.vegetarian);
+        pictureTaken = false;
 
         list.setOnTouchListener(new ListView.OnTouchListener() {
             @Override
@@ -172,7 +174,9 @@ public class CreateDishActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    pictureFile = new File(getApplicationContext().getExternalCacheDir().getAbsoluteFile() + "/image.jpg");
+                    pictureFile = new File(getApplicationContext().getExternalCacheDir().getAbsoluteFile() + "/newDishImage.jpg");
+
+                    Log.d(LOG_TAG, getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + " and " + getApplicationContext().getExternalCacheDir().getAbsoluteFile());
                     pictureURI = Uri.fromFile(pictureFile);
 
                     pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -180,6 +184,8 @@ public class CreateDishActivity extends AppCompatActivity {
                     startActivityForResult(pictureIntent, 1);
 
                     Log.d(LOG_TAG, "Picture taken: " + pictureFile.getAbsoluteFile());
+
+                    pictureTaken = true;
                 } catch(Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Kamera wird nicht unterstützt!", Toast.LENGTH_SHORT).show();
@@ -212,6 +218,18 @@ public class CreateDishActivity extends AppCompatActivity {
 
         dataSource.close();
         return returnValue;
+    }
+
+    private boolean storeImage() {
+        if (pictureTaken) {
+            //pictureFile = new File(getApplicationContext().getExternalCacheDir().getAbsoluteFile() + "/newDishImage.jpg");
+            //pictureFile.renameTo(new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/"));
+
+            //Log.d(LOG_TAG, getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + " and " + getApplicationContext().getExternalCacheDir().getAbsoluteFile());
+            return true;
+        } else {
+            return true;
+        }
     }
 
     private void storeIngredientsToDb(ArrayList<String> ingredients, Dish dish) {
