@@ -522,8 +522,8 @@ public class DishDataSource {
         }
 
         cursor.close();
-        if (foundIntegers.size() > 0) return false;
-        else return true;
+        if (foundIntegers.size() > 0) return true;
+        else return false;
     }
 }
 

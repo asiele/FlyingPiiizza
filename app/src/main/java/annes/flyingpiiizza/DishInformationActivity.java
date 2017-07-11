@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +108,10 @@ public class DishInformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dataSource.open();
-                dataSource.deleteDishByID(thisID);
+                boolean noError = dataSource.deleteDishByID(thisID);
+                if(!noError) {
+                    Toast.makeText(getApplicationContext(), "Dieses Gericht kann nicht gelöscht werden, da es noch in Bestellungen verwendet wird!", Toast.LENGTH_LONG).show();
+                }
                 finish();
             }
         });

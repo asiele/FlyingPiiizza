@@ -138,10 +138,11 @@ public class OrderInformation extends AppCompatActivity {
             }
         });
 
+        //Noch nicht getestet
         buttonDelete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //hier Logik einfügen
+                dataSource.deleteOrderById(id);
             }
         });
 
