@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class OrderInformation extends AppCompatActivity {
     private ListView proposals;
     private EditText dishNameSearch;
     private List<Dish> queryList;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class OrderInformation extends AppCompatActivity {
 
         dataSource.open();
 
-        int id = -1;
+        id = -1;
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
 
@@ -123,13 +125,21 @@ public class OrderInformation extends AppCompatActivity {
         proposals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                /*orderedDishes.add(queryList.get(position));
+                                    int position, long id_) {
+                allDishes.add(queryList.get(position));
                 dishNameSearch.setText("", null);
                 proposals.setVisibility(View.INVISIBLE);
-                priceOrderInfo.setText(Integer.toString(calculateCosts()), null);
+                sumPrice.setText(Integer.toString(calculateCosts()), null);
                 updateOrderListView();
-                GrowingListViewUtils.adaptListViewSize(proposals);*/
+                GrowingListViewUtils.adaptListViewSize(proposals);
+
+                dataSource.open();
+                boolean ok = dataSource.createOrderDishRelation((int) id,
+                        dataSource.getIdByDishName(queryList.get(position).getName()));
+                if(!ok) {
+                    Toast.makeText(getApplicationContext(), "Etwas beim Einfügen der bestellten Gerichte ist falsch gelaufen!", Toast.LENGTH_LONG).show();
+                }
+                dataSource.close();
             }
         });
     }
@@ -155,6 +165,30 @@ public class OrderInformation extends AppCompatActivity {
         proposals.setVisibility(View.VISIBLE);
 
         GrowingListViewUtils.adaptListViewSize(proposals);
+    }
+
+    private int calculateCosts() {
+        int costs = 0;
+        for(int i = 0; i < allDishes.size(); i++) {
+            costs = costs + allDishes.get(i).getPrice();
+        }
+        return costs;
+    }
+
+    private void updateOrderListView() {
+        String dishNames[] = new String[allDishes.size()];
+        Integer dishPrices[] = new Integer[allDishes.size()];
+        String dishTypes[] = new String[allDishes.size()];
+        List<Bitmap> imgrid=new ArrayList<Bitmap>();
+        for(int i = 0; i < allDishes.size(); i++) {
+            dishNames[i] = allDishes.get(i).getName();
+            dishPrices[i] = allDishes.get(i).getPrice();
+            dishTypes[i] = allDishes.get(i).getDishtype();
+        }
+        CustomListAdapter adapter=new CustomListAdapter(this, dishNames, dishPrices, dishTypes,
+                imgrid);
+        listOfOrders.setAdapter(adapter);
+        GrowingListViewUtils.adaptListViewSize(listOfOrders);
     }
 
 }

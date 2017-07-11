@@ -57,7 +57,7 @@
         <ListView
             android:id="@+id/listOfOrders"
             android:layout_width="290dp"
-            android:layout_height="340dp"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/proposals"
             android:layout_marginTop="5dp" >
