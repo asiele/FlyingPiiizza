@@ -6,6 +6,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -103,17 +105,24 @@ public class CreateOrder extends AppCompatActivity {
         dishNameSearch.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                dataSource.open();
+                searchDish();
+            }
+        });
 
-                queryList = dataSource.getAllDishesByQuery(dishNameSearch.getText().toString());
-                List<String> nameList = new ArrayList<String>();
-                for(int i = 0; i < queryList.size(); i++) {
-                    nameList.add(queryList.get(i).getName());
-                }
-                final ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_ingredient, nameList);
-                proposals.setAdapter(adapter);
-                dataSource.close();
-                proposals.setVisibility(View.VISIBLE);
+        dishNameSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                searchDish();
             }
         });
 
@@ -186,6 +195,20 @@ public class CreateOrder extends AppCompatActivity {
         });
 
         proposals.setVisibility(View.INVISIBLE);
+    }
+
+    private void searchDish() {
+        dataSource.open();
+
+        queryList = dataSource.getAllDishesByQuery(dishNameSearch.getText().toString());
+        List<String> nameList = new ArrayList<String>();
+        for(int i = 0; i < queryList.size(); i++) {
+            nameList.add(queryList.get(i).getName());
+        }
+        final ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_ingredient, nameList);
+        proposals.setAdapter(adapter);
+        dataSource.close();
+        proposals.setVisibility(View.VISIBLE);
     }
 
     private int calculateCosts() {
