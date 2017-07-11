@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -314,14 +315,13 @@ public class DishDataSource {
         int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_DISHES_COL_ID);
         id = cursor.getInt(idIndex);
         cursor.close();
-
         return id;
     }
 
     //This method deletes a Dish and all ingredients of this Dish
-    public void deleteDishByID(int id) {
+    public boolean deleteDishByID(int id) {
 
-        if () {
+        if (!isDishInAnyOrder(id)) {
             database.delete(DishDbHelper.DB_TABLE_INGREDIENTS_NAME,
                     DishDbHelper.DB_TABLE_INGREDIENTS_COL_DISH_ID
                             + "=\"" + id + "\"", null);
@@ -331,8 +331,9 @@ public class DishDataSource {
                             + "=\"" + id + "\"", null);
 
             Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id);
+            return true;
         } else {
-
+           return false;
         }
     }
 
@@ -475,19 +476,6 @@ public class DishDataSource {
         return totalCostArray;
     }
 
-    public boolean deleteOrderById(int id) {
-        database.delete(DishDbHelper.DB_TABLE_INGREDIENTS_NAME,
-                DishDbHelper.DB_TABLE_INGREDIENTS_COL_DISH_ID
-                        + "=\"" + id + "\"", null);
-
-        database.delete(DishDbHelper.DB_TABLE_DISHES_NAME,
-                DishDbHelper.DB_TABLE_DISHES_COL_ID
-                        + "=\"" + id + "\"", null);
-
-        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id);
-
-    }
-
     public String getNameOfOrderById(int id) {
         String[] nameColumn = {DishDbHelper.DB_TABLE_ORDERS_COL_NAME};
         String name = "";
@@ -498,6 +486,25 @@ public class DishDataSource {
         name = cursor.getString(idIndex);
         cursor.close();
         return name;
+    }
+
+    public boolean isDishInAnyOrder(int id) {
+        List<Integer> foundIntegers = new ArrayList<Integer>();
+        String[] column = {DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID };
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_NAME,
+                column, DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID + " = " +id,
+                null, null, null, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID);
+            Integer foundId = cursor.getInt(idIndex);
+            foundIntegers.add(foundId);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        if (foundIntegers.size() > 0) return false;
+        else return true;
     }
 }
 
