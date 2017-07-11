@@ -161,9 +161,11 @@ public class CreateDishActivity extends AppCompatActivity {
         okButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                ingredientList.add(ingredientNameField.getText().toString());
-                ingredientNameField.setText("");
-                list.invalidateViews();
+                if (!ingredientNameField.getText().toString().trim().equals("")) {
+                    ingredientList.add(ingredientNameField.getText().toString());
+                    ingredientNameField.setText("");
+                    list.invalidateViews();
+                }
             }
         });
 
