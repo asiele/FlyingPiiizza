@@ -40,6 +40,7 @@ public class OrderInformation extends AppCompatActivity {
     private EditText dishNameSearch;
     private List<Dish> queryList;
     private int id;
+    private Button buttonDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class OrderInformation extends AppCompatActivity {
         listOfOrders = (ListView) findViewById(R.id.listOfOrders);
         proposals = (ListView) findViewById(R.id.proposals);
         dishNameSearch = (EditText) findViewById(R.id.dishNameSearch);
+        buttonDelete = (Button) findViewById(R.id.buttonDelete);
 
         dataSource = new DishDataSource(this);
 
@@ -124,6 +126,12 @@ public class OrderInformation extends AppCompatActivity {
             }
         });
 
+        buttonDelete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //hier Logik einfügen
+            }
+        });
 
         dishNameSearch.setOnClickListener(new View.OnClickListener(){
             @Override
