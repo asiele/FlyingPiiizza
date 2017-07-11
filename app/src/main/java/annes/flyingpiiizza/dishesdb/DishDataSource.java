@@ -509,13 +509,13 @@ public class DishDataSource {
 
     public boolean isDishInAnyOrder(int id) {
         List<Integer> foundIntegers = new ArrayList<Integer>();
-        String[] column = {DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID };
+        String[] column = {DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID };
         Cursor cursor = database.query(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_NAME,
-                column, DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID + " = " +id,
+                column, DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID + " = " +id,
                 null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID);
+            int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID);
             Integer foundId = cursor.getInt(idIndex);
             foundIntegers.add(foundId);
             cursor.moveToNext();
