@@ -407,11 +407,11 @@ public class DishDataSource {
     }
 
     public int calculateOrderCost(int id) {
-        if (id == 0) {
+        if (id != -1) {
             List<Dish> dishList = getAllDishesByOrderID(id);
             int orderCost = 0;
             for (Dish dish : dishList) {
-                orderCost += dish.getPrice();
+                orderCost = orderCost + dish.getPrice();
             }
             return orderCost;
         } else {
