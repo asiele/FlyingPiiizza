@@ -380,7 +380,7 @@ public class DishDataSource {
     }
 
     public List<Dish> getAllDishesByOrderID(int orderId) {
-        if (orderId == 0) {
+        if (orderId != -1) {
             List<Integer> dishesIds = new ArrayList<Integer>();
             List<Dish> dishesList = new ArrayList<Dish>();
             String[] dishIdColumn = {DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID};
@@ -403,7 +403,9 @@ public class DishDataSource {
                 dishesList.add(getDishByID(dishId));
             }
             return dishesList;
-        } return null;
+        } else {
+            return null;
+        }
     }
 
     public int calculateOrderCost(int id) {
