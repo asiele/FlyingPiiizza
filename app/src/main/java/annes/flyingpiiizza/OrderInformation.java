@@ -1,5 +1,6 @@
 package annes.flyingpiiizza;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -78,6 +79,15 @@ public class OrderInformation extends AppCompatActivity {
                 imgrid);
         listOfOrders.setAdapter(adapter);
         dataSource.close();
+
+        listOfOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                //Hier rein kopieren
+            }
+        });
 
         buttonBack.setOnClickListener(new View.OnClickListener(){
             @Override
