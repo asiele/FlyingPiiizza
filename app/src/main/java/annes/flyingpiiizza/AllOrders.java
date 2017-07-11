@@ -76,4 +76,10 @@ public class AllOrders extends AppCompatActivity {
         dataSource.close();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        showAllOrders(); // Refresh the order list every time the view is shown in case the list changed
+    }
+
 }
