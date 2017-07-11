@@ -417,7 +417,7 @@ public class DishDataSource {
         }
     }
 
-    public Integer[] getAllOrderNames() {
+    public String[] getAllOrderNames() {
         String[] nameOrderColumn = { DishDbHelper.DB_TABLE_ORDERS_COL_NAME };
         List<String> allOrderNames = new ArrayList<String>();
 
@@ -428,7 +428,7 @@ public class DishDataSource {
             allOrderNames.add(order);
         }
 
-        Integer[] allOrderNamesArray = new Integer[allOrderNames.size()];
+        String[] allOrderNamesArray = new String[allOrderNames.size()];
         allOrderNames.toArray(allOrderNamesArray);
 
         return allOrderNamesArray;
