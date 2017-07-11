@@ -123,6 +123,7 @@ public class CreateDishActivity extends AppCompatActivity {
 
                 if (storeDishToDb(newDish)) {
                     if (ingredientList.size() > 0) {
+                        storeImage(dataSource.getIdByDishName(newDish.getName()));
                         storeIngredientsToDb(ingredientList, newDish);
                     }
                     finish();
@@ -220,7 +221,6 @@ public class CreateDishActivity extends AppCompatActivity {
 
         dataSource.open();
         dish = dataSource.storeDish(dish);
-        storeImage(dataSource.getIdByDishName(dish.getName()));
 
         Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
         showAllListEntries();
