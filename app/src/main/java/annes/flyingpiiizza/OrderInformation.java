@@ -110,7 +110,6 @@ public class OrderInformation extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id__) {
                                 dataSource.open();
                                 dataSource.deleteDishFromOrder(dataSource.getIdByDishName(allDishes.get(position).getName()), id);
-                                dataSource.close();
 
                                 for (int i = 0; i < allDishes.size(); i++) {
                                     if (allDishes.get(i).getName().equals(allDishes.get(position).getName())) {
@@ -121,6 +120,7 @@ public class OrderInformation extends AppCompatActivity {
 
                                 updateOrderListView();
                                 sumPrice.setText(Integer.toString(dataSource.calculateOrderCost(id)));
+                                dataSource.close();
                                 dialog.cancel();
                             }
                         });
