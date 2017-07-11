@@ -1,15 +1,13 @@
 package annes.flyingpiiizza;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -112,12 +110,10 @@ public class CreateOrder extends AppCompatActivity {
         dishNameSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -209,6 +205,29 @@ public class CreateOrder extends AppCompatActivity {
         proposals.setAdapter(adapter);
         dataSource.close();
         proposals.setVisibility(View.VISIBLE);
+
+        adaptProposalListSize();
+    }
+
+    private void adaptProposalListSize() {
+        ListAdapter listAdapter = proposals.getAdapter();
+        if (listAdapter == null) {
+
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, proposals);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = proposals.getLayoutParams();
+        params.height = totalHeight
+                + (proposals.getDividerHeight() * (listAdapter.getCount() - 1));
+        proposals.setLayoutParams(params);
+        proposals.requestLayout();
     }
 
     private int calculateCosts() {
