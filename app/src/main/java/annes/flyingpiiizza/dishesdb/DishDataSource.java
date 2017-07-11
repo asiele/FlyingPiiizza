@@ -349,6 +349,12 @@ public class DishDataSource {
         Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id);
     }
 
+    public void deleteDishFromOrder(int dishId, int orderId) {
+        database.delete(DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_NAME,
+                DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_ORDERID + "=\"" + orderId + "\""
+        + " AND " + DishDbHelper.DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID + "=\"" + dishId + "\"", null);
+    }
+
 
     //Search Query method
     public List<Dish> getAllDishesByQuery(String query) {

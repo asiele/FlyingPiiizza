@@ -1,5 +1,7 @@
 package annes.flyingpiiizza;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -86,8 +88,30 @@ public class OrderInformation extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                //Hier rein kopieren
+                                    final int position, long id) {
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplicationContext());
+                builder1.setMessage("Möchten Sie das Gericht wirklich aus der Bestellung entfernen?");
+                builder1.setCancelable(true);
+                builder1.setPositiveButton(
+                        "Ja",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dataSource.deleteDishFromOrder(dataSource.getIdByDishName(allDishes.get(position).getName()), id);
+                                dialog.cancel();
+                            }
+                        });
+                builder1.setNegativeButton(
+                        "Nein",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
             }
         });
 
