@@ -140,8 +140,11 @@ public class OrderInformation extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Etwas beim Einfügen der bestellten Gerichte ist falsch gelaufen!", Toast.LENGTH_LONG).show();
                 }
                 dataSource.close();
+                GrowingListViewUtils.adaptListViewSize(listOfOrders);
             }
         });
+
+        GrowingListViewUtils.adaptListViewSize(listOfOrders);
     }
 
     private void searchDish() {
