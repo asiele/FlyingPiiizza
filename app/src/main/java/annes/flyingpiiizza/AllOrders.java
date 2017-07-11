@@ -20,8 +20,7 @@ public class AllOrders extends AppCompatActivity {
     private ListView allOrders;
     DishDataSource dataSource;
     String[] dishNames = {};
-    int[] IDs = {};
-    int[] prices = {};
+    Integer[] prices = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +47,18 @@ public class AllOrders extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        showAllOrders();
     }
 
-//    private void showAllDishes() {
-//        dataSource = new DishDataSource(this);
-//
-//        dataSource.open();
-//        IDs = //Johannas Methode
-//        dishNames = //Johannas Methode Namen
-//        price = //Johannas Methode Preis
-//        CustomListAdapter adapter = new CustomListAdapter(this, dishNames, prices, null, null);
-//        allOrders.setAdapter(adapter);
-//
+    private void showAllOrders() {
+        dataSource = new DishDataSource(this);
+
+        dataSource.open();
+        dishNames = (String[]) dataSource.getAllOrderNames().toArray();
+        prices =  (Integer[]) dataSource.getAllOrderTotalCost().toArray();
+        CustomListAdapter adapter = new CustomListAdapter(this, dishNames, prices, null, null);
+        allOrders.setAdapter(adapter);
+
 //        allOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //
 //            @Override
@@ -70,8 +69,8 @@ public class AllOrders extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
-//
-//        dataSource.close();
-//    }
+
+        dataSource.close();
+    }
 
 }
