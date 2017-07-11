@@ -2,6 +2,7 @@ package annes.flyingpiiizza;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -56,7 +57,9 @@ public class AllOrders extends AppCompatActivity {
         dataSource.open();
         dishNames = dataSource.getAllOrderNames();
         prices =  dataSource.getAllOrderTotalCost();
-        CustomListAdapter adapter = new CustomListAdapter(this, dishNames, prices, null, null);
+        String[] ArrayString = {};
+        Integer[] ArrayInteger = {};
+        CustomListAdapter adapter = new CustomListAdapter(this, dishNames, prices, ArrayString, ArrayInteger);
         allOrders.setAdapter(adapter);
 
 //        allOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
