@@ -54,8 +54,8 @@ public class AllOrders extends AppCompatActivity {
         dataSource = new DishDataSource(this);
 
         dataSource.open();
-        dishNames = (String[]) dataSource.getAllOrderNames().toArray();
-        prices =  (Integer[]) dataSource.getAllOrderTotalCost().toArray();
+        dishNames = dataSource.getAllOrderNames();
+        prices =  dataSource.getAllOrderTotalCost();
         CustomListAdapter adapter = new CustomListAdapter(this, dishNames, prices, null, null);
         allOrders.setAdapter(adapter);
 
