@@ -422,7 +422,7 @@ public class DishDataSource {
         }
     }
 
-    public List<String> getAllOrderNames() {
+    public Integer[] getAllOrderNames() {
         String[] nameOrderColumn = { DishDbHelper.DB_TABLE_ORDERS_COL_NAME };
         List<String> allOrderNames = new ArrayList<String>();
 
@@ -432,10 +432,14 @@ public class DishDataSource {
             String order = cursor.getString(idIndex);
             allOrderNames.add(order);
         }
-        return allOrderNames;
+
+        Integer[] allOrderNamesArray = new Integer[allOrderNames.size()];
+        allOrderNames.toArray(allOrderNamesArray);
+
+        return allOrderNamesArray;
     }
 
-    public List<Integer> getAllOrderIds() {
+    public Integer[] getAllOrderIds() {
         String[] nameOrderColumn = { DishDbHelper.DB_TABLE_ORDERS_COL_ID };
         List<Integer> allOrderIds = new ArrayList<Integer>();
 
@@ -445,15 +449,20 @@ public class DishDataSource {
             Integer id = cursor.getInt(idIndex);
             allOrderIds.add(id);
         }
-        return allOrderIds;
+
+        Integer[] allOrderIdsInteger = new Integer[allOrderIds.size()];
+        allOrderIds.toArray(allOrderIdsInteger);
+        return allOrderIdsInteger;
     }
 
-    public List<Integer> getAllOrderTotalCost() {
+    public Integer[] getAllOrderTotalCost() {
         List<Integer> totalCostList = new ArrayList<Integer>();
         for (Integer totalCost: getAllOrderIds()) {
             totalCostList.add(totalCost);
         }
-        return totalCostList;
+        Integer[] totalCostArray = new Integer[totalCostList.size()];
+        totalCostList.toArray(totalCostArray);
+        return totalCostArray;
     }
 }
 
