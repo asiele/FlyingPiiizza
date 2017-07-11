@@ -65,7 +65,7 @@ public class DishDbHelper extends SQLiteOpenHelper {
     public static final String SQL_CREATE_TABLE_ORDERS = String.format(
             "CREATE TABLE %s (" +
                     "%s INTEGER PRIMARY KEY AUTOINCREMENT," +       // id
-                    "%s TEXT NOT NULL," +                           // name
+                    "%s TEXT NOT NULL" +                           // name
                     ")",
             DB_TABLE_ORDERS_NAME,
             DB_TABLE_ORDERS_COL_ID,
@@ -74,7 +74,7 @@ public class DishDbHelper extends SQLiteOpenHelper {
     public static final String SQL_CREATE_TABLE_ORDERS_DISHES_RELATION = String.format(
             "CREATE TABLE %s (" +
                     "%s INTEGER NOT NULL," +       // id dish
-                    "%s INTEGER NOT NULL," +       // id order
+                    "%s INTEGER NOT NULL" +       // id order
                     ")",
             DB_TABLE_ORDERS_DISHES_RELATION_NAME,
             DB_TABLE_ORDERS_DISHES_RELATION_COL_DISHID,
