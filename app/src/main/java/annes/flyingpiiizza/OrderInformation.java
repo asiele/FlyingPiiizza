@@ -1,6 +1,7 @@
 package annes.flyingpiiizza;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -84,27 +85,28 @@ public class OrderInformation extends AppCompatActivity {
         listOfOrders.setAdapter(adapter);
         dataSource.close();
 
+        final Context context = this;
         listOfOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     final int position, long id) {
 
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
                 builder1.setMessage("Möchten Sie das Gericht wirklich aus der Bestellung entfernen?");
                 builder1.setCancelable(true);
+                builder1.setNegativeButton(
+                        "Nein",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
                 builder1.setPositiveButton(
                         "Ja",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dataSource.deleteDishFromOrder(dataSource.getIdByDishName(allDishes.get(position).getName()), id);
-                                dialog.cancel();
-                            }
-                        });
-                builder1.setNegativeButton(
-                        "Nein",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
                         });
