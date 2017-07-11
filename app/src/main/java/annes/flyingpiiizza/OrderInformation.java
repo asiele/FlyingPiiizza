@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -104,6 +106,20 @@ public class OrderInformation extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 searchDish();
+            }
+        });
+
+
+        proposals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                /*orderedDishes.add(queryList.get(position));
+                dishNameSearch.setText("", null);
+                proposals.setVisibility(View.INVISIBLE);
+                priceOrderInfo.setText(Integer.toString(calculateCosts()), null);
+                updateOrderListView();
+                GrowingListViewUtils.adaptListViewSize(proposals);*/
             }
         });
     }
