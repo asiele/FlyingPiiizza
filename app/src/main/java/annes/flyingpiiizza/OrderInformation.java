@@ -1,5 +1,6 @@
 package annes.flyingpiiizza;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,7 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import annes.flyingpiiizza.dishesdb.DishDataSource;
 
@@ -17,6 +22,8 @@ public class OrderInformation extends AppCompatActivity {
     private  TextView nameOrder;
     private Button buttonBack;
     private DishDataSource dataSource;
+    private List<Dish> allDishes;
+    private ListView listOfOrders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,7 @@ public class OrderInformation extends AppCompatActivity {
         sumPrice = (TextView) findViewById(R.id.priceOrderInfo);
         nameOrder = (TextView) findViewById(R.id.nameOrderInfo);
         buttonBack = (Button) findViewById(R.id.buttonBack);
+        listOfOrders = (ListView) findViewById(R.id.listOfOrders);
 
         dataSource = new DishDataSource(this);
 
@@ -42,8 +50,21 @@ public class OrderInformation extends AppCompatActivity {
         }
 
         sumPrice.setText(Integer.toString(dataSource.calculateOrderCost(id)));
-        nameOrder.setText("Blabla");
+        nameOrder.setText(dataSource.getNameOfOrderById(id));
 
+        allDishes = dataSource.getAllDishesByOrderID(id);
+        List<Bitmap> imgrid=new ArrayList<Bitmap>();
+        String[] dishNames = new String[allDishes.size()];
+        String[] dishTypes = new String[allDishes.size()];
+        Integer[] dishPrice = new Integer[allDishes.size()];
+        for(int i = 0; i < allDishes.size(); i++) {
+            dishNames[i] = allDishes.get(i).getName();
+            dishTypes[i] = allDishes.get(i).getDishtype();
+            dishPrice[i] = allDishes.get(i).getPrice();
+        }
+        CustomListAdapter adapter=new CustomListAdapter(this, dishNames, dishPrice, dishTypes,
+                imgrid);
+        listOfOrders.setAdapter(adapter);
         dataSource.close();
 
         buttonBack.setOnClickListener(new View.OnClickListener(){
