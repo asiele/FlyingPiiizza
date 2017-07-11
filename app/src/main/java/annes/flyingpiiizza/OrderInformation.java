@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import annes.flyingpiiizza.dishesdb.DishDataSource;
@@ -13,6 +14,8 @@ import annes.flyingpiiizza.dishesdb.DishDataSource;
 public class OrderInformation extends AppCompatActivity {
 
     private TextView sumPrice;
+    private  TextView nameOrder;
+    private Button buttonBack;
     private DishDataSource dataSource;
 
     @Override
@@ -22,21 +25,33 @@ public class OrderInformation extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        dataSource = new DishDataSource(this);
-//
-//        dataSource.open();
-//
-//        int id = -1;
-//        Bundle extras = getIntent().getExtras();
-//        if(extras == null) {
-//
-//        } else {
-//            id = (int) extras.get("IDOrderExtra");
-//        }
-//
-//        sumPrice.setText(id);
-//
-//        dataSource.close();
+        sumPrice = (TextView) findViewById(R.id.priceOrderInfo);
+        nameOrder = (TextView) findViewById(R.id.nameOrderInfo);
+        buttonBack = (Button) findViewById(R.id.buttonBack);
+
+        dataSource = new DishDataSource(this);
+
+        dataSource.open();
+
+        int id = -1;
+        Bundle extras = getIntent().getExtras();
+        if(extras == null) {
+
+        } else {
+            id = (int) extras.get("IDOrderExtra");
+        }
+
+        sumPrice.setText(Integer.toString(dataSource.calculateOrderCost(id)));
+        nameOrder.setText("Blabla");
+
+        dataSource.close();
+
+        buttonBack.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 }

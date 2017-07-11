@@ -109,7 +109,7 @@
             android:layout_below="@id/priceOrderInfoLinearLayout"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="4dp"
-            android:text="Gericht löschen" />
+            android:text="Bestellung löschen" />
 
         <Button
             android:id="@+id/buttonBack"
