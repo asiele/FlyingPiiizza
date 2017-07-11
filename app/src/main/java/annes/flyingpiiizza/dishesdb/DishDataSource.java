@@ -415,6 +415,40 @@ public class DishDataSource {
         }
         return orderCost;
     }
+
+    public List<String> getAllOrderNames() {
+        String[] nameOrderColumn = { DishDbHelper.DB_TABLE_ORDERS_COL_NAME };
+        List<String> allOrderNames = new ArrayList<String>();
+
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_ORDERS_NAME, nameOrderColumn, null, null, null, null, null);
+        while (!cursor.isAfterLast()) {
+            int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_ORDERS_COL_NAME);
+            String order = cursor.getString(idIndex);
+            allOrderNames.add(order);
+        }
+        return allOrderNames;
+    }
+
+    public List<Integer> getAllOrderIds() {
+        String[] nameOrderColumn = { DishDbHelper.DB_TABLE_ORDERS_COL_ID };
+        List<Integer> allOrderIds = new ArrayList<Integer>();
+
+        Cursor cursor = database.query(DishDbHelper.DB_TABLE_ORDERS_NAME, nameOrderColumn, null, null, null, null, null);
+        while (!cursor.isAfterLast()) {
+            int idIndex = cursor.getColumnIndex(DishDbHelper.DB_TABLE_ORDERS_COL_ID);
+            Integer id = cursor.getInt(idIndex);
+            allOrderIds.add(id);
+        }
+        return allOrderIds;
+    }
+
+    public List<Integer> getAllOrderTotalCost() {
+        List<Integer> totalCostList = new ArrayList<Integer>();
+        for (Integer totalCost: getAllOrderIds()) {
+            totalCostList.add(totalCost);
+        }
+        return totalCostList;
+    }
 }
 
 
