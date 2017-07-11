@@ -122,8 +122,10 @@ public class CreateDishActivity extends AppCompatActivity {
                 );
 
                 if (storeDishToDb(newDish)) {
+                    dataSource.open();
+                    storeImage(dataSource.getIdByDishName(newDish.getName()));
+                    dataSource.close();
                     if (ingredientList.size() > 0) {
-                        storeImage(dataSource.getIdByDishName(newDish.getName()));
                         storeIngredientsToDb(ingredientList, newDish);
                     }
                     finish();
