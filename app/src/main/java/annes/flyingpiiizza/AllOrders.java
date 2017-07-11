@@ -1,6 +1,7 @@
 package annes.flyingpiiizza;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import annes.flyingpiiizza.dishesdb.DishDataSource;
 
@@ -60,7 +64,7 @@ public class AllOrders extends AppCompatActivity {
         prices =  dataSource.getAllOrderTotalCost();
         IDs = dataSource.getAllOrderIds();
         String[] ArrayString = {};
-        Integer[] ArrayInteger = {};
+        List<Bitmap> ArrayInteger = new ArrayList<Bitmap>();
         CustomListAdapter adapter = new CustomListAdapter(this, dishNames, prices, ArrayString, ArrayInteger);
         allOrders.setAdapter(adapter);
 

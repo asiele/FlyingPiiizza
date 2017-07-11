@@ -1,13 +1,15 @@
 package annes.flyingpiiizza;
 
 import android.app.Activity;
-import android.util.Log;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.List;
 
 import annes.flyingpiiizza.dishesdb.DishDbHelper;
 
@@ -18,15 +20,15 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     private final String[] dishNames;
     private final Integer[] dishPrices;
     private final String[] dishTypes;
-    private final Integer[] imgid;
+    private final List<Bitmap> images;
 
-    public CustomListAdapter(Activity context, String[] dishNames, Integer[] dishPrices, String[] dishTypes, Integer[] imgid) {
+    public CustomListAdapter(Activity context, String[] dishNames, Integer[] dishPrices, String[] dishTypes, List<Bitmap> images) {
         super(context, R.layout.mylist, dishNames);
         // TODO Auto-generated constructor stub
 
         this.context=context;
         this.dishNames = dishNames;
-        this.imgid=imgid;
+        this.images = images;
         this.dishPrices = dishPrices;
         this.dishTypes = dishTypes;
     }
@@ -40,8 +42,8 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         TextView extratxt = (TextView) rowView.findViewById(R.id.dishTypeTextView);
 
         txtTitle.setText(dishNames[position]);
-        if(position < imgid.length) {
-            imageView.setImageResource(imgid[position]);
+        if(position < images.size() && images.get(position) != null) {
+            imageView.setImageBitmap(images.get(position));
         }
         priceView.setText("Preis: " + dishPrices[position]);
         if(position < dishTypes.length) {

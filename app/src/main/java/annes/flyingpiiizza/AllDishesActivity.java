@@ -2,6 +2,8 @@ package annes.flyingpiiizza;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -75,18 +77,20 @@ public class AllDishesActivity extends AppCompatActivity {
         dishPrices = dataSource.getAllDishesPricesAsIntegerArray();
         dishTypes = dataSource.getAllDishesTypesAsStringArray();
 
-        List<Integer> images = new ArrayList<Integer>(dishNames.length);
+        List<Bitmap> images = new ArrayList<Bitmap>(dishNames.length);
 
-        /*for (String dishname: dishNames) {
-            int dishid = dataSource.getIdByDishName(dishname);
+        for (int i = 0; i < dishNames.length; i++) {
+            int dishid = dataSource.getIdByDishName(dishNames[i]);
             File img = new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + dishid + ".jpg");
 
             if (img.exists()) {
-                Resources.getSystem().getIdentifier(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + dishid, "raw", getPackageName());
+                images.add(BitmapFactory.decodeFile(img.getAbsolutePath()));
+            } else {
+                images.add(null);
             }
-        }*/
+        }
 
-        CustomListAdapter adapter=new CustomListAdapter(this, dishNames, dishPrices, dishTypes, imgid);
+        CustomListAdapter adapter=new CustomListAdapter(this, dishNames, dishPrices, dishTypes, images);
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter);
 

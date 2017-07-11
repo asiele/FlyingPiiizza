@@ -1,5 +1,6 @@
 package annes.flyingpiiizza;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -228,7 +229,7 @@ public class CreateOrder extends AppCompatActivity {
         String dishNames[] = new String[orderedDishes.size()];
         Integer dishPrices[] = new Integer[orderedDishes.size()];
         String dishTypes[] = new String[orderedDishes.size()];
-        Integer[] imgrid={};
+        List<Bitmap> imgrid=new ArrayList<Bitmap>();
         for(int i = 0; i < orderedDishes.size(); i++) {
             dishNames[i] = orderedDishes.get(i).getName();
             dishPrices[i] = orderedDishes.get(i).getPrice();
