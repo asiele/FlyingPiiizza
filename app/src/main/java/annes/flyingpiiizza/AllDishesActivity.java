@@ -1,6 +1,7 @@
 package annes.flyingpiiizza;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,7 +11,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Button;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import annes.flyingpiiizza.dishesdb.DishDataSource;
+import annes.flyingpiiizza.dishesdb.DishDbHelper;
 
 
 public class AllDishesActivity extends AppCompatActivity {
@@ -68,6 +74,18 @@ public class AllDishesActivity extends AppCompatActivity {
         dishNames = dataSource.getAllDishesNamesAsStringArray();
         dishPrices = dataSource.getAllDishesPricesAsIntegerArray();
         dishTypes = dataSource.getAllDishesTypesAsStringArray();
+
+        List<Integer> images = new ArrayList<Integer>(dishNames.length);
+
+        /*for (String dishname: dishNames) {
+            int dishid = dataSource.getIdByDishName(dishname);
+            File img = new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + dishid + ".jpg");
+
+            if (img.exists()) {
+                Resources.getSystem().getIdentifier(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + dishid, "raw", getPackageName());
+            }
+        }*/
+
         CustomListAdapter adapter=new CustomListAdapter(this, dishNames, dishPrices, dishTypes, imgid);
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter);

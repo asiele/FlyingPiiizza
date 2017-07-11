@@ -212,6 +212,7 @@ public class CreateDishActivity extends AppCompatActivity {
 
         dataSource.open();
         dish = dataSource.storeDish(dish);
+        storeImage(dataSource.getIdByDishName(dish.getName()));
 
         Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
         showAllListEntries();
@@ -220,12 +221,12 @@ public class CreateDishActivity extends AppCompatActivity {
         return dish != null;
     }
 
-    private boolean storeImage() {
+    private boolean storeImage(int id) {
         if (pictureTaken) {
-            //pictureFile = new File(getApplicationContext().getExternalCacheDir().getAbsoluteFile() + "/newDishImage.jpg");
-            //pictureFile.renameTo(new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/"));
+            pictureFile = new File(getApplicationContext().getExternalCacheDir().getAbsoluteFile() + "/newDishImage.jpg");
+            pictureFile.renameTo(new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + id + ".jpg"));
 
-            //Log.d(LOG_TAG, getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + " and " + getApplicationContext().getExternalCacheDir().getAbsoluteFile());
+            Log.d(LOG_TAG, "Moved image to " + getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + id + ".jpg");
             return true;
         } else {
             return true;
