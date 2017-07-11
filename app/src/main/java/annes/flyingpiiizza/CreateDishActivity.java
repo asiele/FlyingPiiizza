@@ -211,13 +211,13 @@ public class CreateDishActivity extends AppCompatActivity {
         dataSource = new DishDataSource(this);
 
         dataSource.open();
-        returnValue = dataSource.storeDish(dish);
+        dish = dataSource.storeDish(dish);
 
         Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
         showAllListEntries();
 
         dataSource.close();
-        return returnValue;
+        return dish != null;
     }
 
     private boolean storeImage() {

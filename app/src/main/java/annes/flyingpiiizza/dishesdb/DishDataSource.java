@@ -113,13 +113,8 @@ public class DishDataSource {
     }
 
     //Stores the given Dish in the Database
-    public boolean storeDish(Dish dish) {
-        //TODO
-
-        if (createDish(dish.getName(), dish.getDishtype(), dish.getPrice(), dish.getVegetarian()) == null) {
-            return false;
-        }
-        return true;
+    public Dish storeDish(Dish dish) {
+        return createDish(dish.getName(), dish.getDishtype(), dish.getPrice(), dish.getVegetarian());
     }
 
     public long createOrder(String name) {
