@@ -1,6 +1,7 @@
 package annes.flyingpiiizza;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -39,6 +40,7 @@ public class OrderInformation extends AppCompatActivity {
     private EditText dishNameSearch;
     private List<Dish> queryList;
     private int id;
+    private Button buttonDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class OrderInformation extends AppCompatActivity {
         listOfOrders = (ListView) findViewById(R.id.listOfOrders);
         proposals = (ListView) findViewById(R.id.proposals);
         dishNameSearch = (EditText) findViewById(R.id.dishNameSearch);
+        buttonDelete = (Button) findViewById(R.id.buttonDelete);
 
         dataSource = new DishDataSource(this);
 
@@ -84,27 +87,30 @@ public class OrderInformation extends AppCompatActivity {
         listOfOrders.setAdapter(adapter);
         dataSource.close();
 
+        final Context context = this;
         listOfOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     final int position, long id_) {
 
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
                 builder1.setMessage("Möchten Sie das Gericht wirklich aus der Bestellung entfernen?");
                 builder1.setCancelable(true);
-                builder1.setPositiveButton(
-                        "Ja",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id__) {
-                                dataSource.deleteDishFromOrder(dataSource.getIdByDishName(allDishes.get(position).getName()), id);
-                                dialog.cancel();
-                            }
-                        });
                 builder1.setNegativeButton(
                         "Nein",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                            public void onClick(DialogInterface dialog, int id__) {
+                                dataSource.deleteDishFromOrder(dataSource.getIdByDishName(allDishes.get(position).getName()), id);
+
+                                dialog.cancel();
+                            }
+                        });
+                builder1.setPositiveButton(
+                        "Ja",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id_) {
+                                dataSource.deleteDishFromOrder(dataSource.getIdByDishName(allDishes.get(position).getName()), id);
                                 dialog.cancel();
                             }
                         });
@@ -122,6 +128,12 @@ public class OrderInformation extends AppCompatActivity {
             }
         });
 
+        buttonDelete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //hier Logik einfügen
+            }
+        });
 
         dishNameSearch.setOnClickListener(new View.OnClickListener(){
             @Override
