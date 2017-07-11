@@ -22,6 +22,7 @@ public class AllOrders extends AppCompatActivity {
     DishDataSource dataSource;
     String[] dishNames = {};
     Integer[] prices = {};
+    Integer[] IDs = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,21 +58,22 @@ public class AllOrders extends AppCompatActivity {
         dataSource.open();
         dishNames = dataSource.getAllOrderNames();
         prices =  dataSource.getAllOrderTotalCost();
+        IDs = dataSource.getAllOrderIds();
         String[] ArrayString = {};
         Integer[] ArrayInteger = {};
         CustomListAdapter adapter = new CustomListAdapter(this, dishNames, prices, ArrayString, ArrayInteger);
         allOrders.setAdapter(adapter);
 
-//        allOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                Intent intent = new Intent(AllOrders.this, OrderInformation.class);
-//                intent.putExtra("IDOrderExtra", IDs[position]);
-//                startActivity(intent);
-//            }
-//        });
+        allOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Intent intent = new Intent(AllOrders.this, OrderInformation.class);
+                intent.putExtra("IDOrderExtra", IDs[position]);
+                startActivity(intent);
+            }
+        });
 
         dataSource.close();
     }

@@ -22,22 +22,21 @@ public class OrderInformation extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        sumPrice = (TextView) findViewById(R.id.priceOrderInfo);
-        dataSource = new DishDataSource(this);
-
-        dataSource.open();
-
-        int id = -1;
-        Bundle extras = getIntent().getExtras();
-        if(extras == null) {
-
-        } else {
-            id = (int) extras.get("IDOrderExtra");
-        }
-
-        sumPrice.setText(dataSource.calculateOrderCost(id));
-
-        dataSource.close();
+//        dataSource = new DishDataSource(this);
+//
+//        dataSource.open();
+//
+//        int id = -1;
+//        Bundle extras = getIntent().getExtras();
+//        if(extras == null) {
+//
+//        } else {
+//            id = (int) extras.get("IDOrderExtra");
+//        }
+//
+//        sumPrice.setText(id);
+//
+//        dataSource.close();
     }
 
 }
