@@ -191,15 +191,19 @@
                 android:layout_marginTop="5dp"
                 android:text="Gericht löschen" />
 
-            <Button
-                android:id="@+id/buttonBack"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Zurück"
-                android:layout_toRightOf="@id/buttonDelete"
-                android:layout_marginLeft="117dp"
                 android:layout_below="@id/picture"
-                android:layout_marginTop="5dp"/>
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp">
+                <Button
+                    android:id="@+id/buttonBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Zurück"
+                    android:layout_marginRight="10dp"/>
+            </RelativeLayout>
 
 
 
