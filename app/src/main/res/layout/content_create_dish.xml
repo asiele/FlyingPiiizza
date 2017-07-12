@@ -188,14 +188,18 @@
             android:layout_centerHorizontal="true"
             android:layout_toEndOf="@+id/ingredients" />
 
-        <Button
-            android:id="@+id/buttonBack"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Zurück"
             android:layout_below="@id/picture"
-            android:layout_toRightOf="@id/createDish"
-            android:layout_marginLeft="80dp"/>
+            android:layout_alignParentRight="true">
+            <Button
+                android:id="@+id/buttonBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zurück"
+                android:layout_marginRight="10dp"/>
+        </RelativeLayout>
 
 
     </RelativeLayout>

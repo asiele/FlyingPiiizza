@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="annes.flyingpiiizza.CreateDishActivity"
+    tools:showIn="@layout/activity_create_dish">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="0dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="0dp">
+
+            <TextView
+                android:id="@+id/textViewDishes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="29dp"
+                android:fontFamily="casual"
+                android:text="Neues Gericht"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/dishName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/textViewDishes"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/dishType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Gericht Typ"
+                android:inputType="textPersonName"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/dishName"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/dishPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:ems="10"
+                android:hint="Preis"
+                android:textAlignment="center"
+                android:inputType="number"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/dishType"
+                android:layout_marginTop="15dp"/>
+
+            <CheckBox
+                android:id="@+id/vegetarian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dishPrice"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="7dp"
+                android:text="vegetarisch"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zutaten"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="25sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/vegetarian"
+                android:layout_marginTop="20dp"/>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/ingredientField"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/ingredients" >
+
+                <EditText
+                    android:id="@+id/ingredientName"
+                    android:layout_width = "fill_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Name"
+                    android:inputType="textPersonName"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="left"
+                    android:layout_weight = "1" />
+
+                <Button
+                    android:id="@+id/OKButton"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="OK"
+                    android:layout_toRightOf="@+id/ingredientName"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listOfIngredientNames"
+                android:layout_width="250dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/ingredientField"
+                android:layout_marginTop="10dp" />
+
+            <Button
+                android:id="@+id/resetIngredients"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:text="Zutaten zurücksetzten"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/listOfIngredientNames"
+                android:layout_marginTop="5dp"
+                android:textSize="12dp"/>
+
+            <TextView
+                android:id="@+id/pictureDish"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Bild"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="25sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/resetIngredients"
+                android:layout_marginTop="15dp"/>
+
+            <Button
+                android:id="@+id/takePicture"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Bild aufnehmen"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/pictureDish"
+                android:layout_marginTop="10dp"/>
+
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/takePicture"
+                android:layout_marginTop="10dp"/>
+
+
+            <Button
+                android:id="@+id/createDish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Erstellen"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/ingredients"
+                android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@+id/ingredients" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/picture"
+                android:layout_alignParentRight="true">
+            <Button
+                android:id="@+id/buttonBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zurück"
+                android:layout_marginRight="10dp"/>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
