@@ -34,4 +34,12 @@ public class GrowingListViewUtils {
         imageView.setLayoutParams(params);
         imageView.requestLayout();
     }
+
+    static public void setImageViewSizeMax(ImageView imageView, int width, int height) {
+        ViewGroup.LayoutParams params = imageView.getLayoutParams();
+        params.height = height;
+        params.width = width;
+        imageView.setLayoutParams(params);
+        imageView.requestLayout();
+    }
 }

@@ -1,9 +1,11 @@
 package annes.flyingpiiizza;
 
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -121,6 +123,12 @@ public class DishInformationActivity extends AppCompatActivity {
         File img = new File(getApplicationContext().getFilesDir().getAbsoluteFile().getAbsolutePath() + "/dishimg" + thisID + ".jpg");
 
         if (img.exists()) {
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            int height = size.y;
+            GrowingListViewUtils.setImageViewSizeMax(picture, width, height);
             picture.setImageBitmap(BitmapFactory.decodeFile(img.getAbsolutePath()));
         }
 
