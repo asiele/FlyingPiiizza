@@ -2,6 +2,7 @@ package annes.flyingpiiizza;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -25,5 +26,11 @@ public class GrowingListViewUtils {
                 + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
+    }
+
+    static public void setImageViewSize(ImageView imageView) {
+        ViewGroup.LayoutParams params = imageView.getLayoutParams();
+        imageView.setLayoutParams(params);
+        imageView.requestLayout();
     }
 }

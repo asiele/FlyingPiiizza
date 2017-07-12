@@ -215,6 +215,7 @@ public class CreateDishActivity extends AppCompatActivity {
             if(requestCode == 1) {
                 Toast.makeText(getApplicationContext(), "Bild wurde gespeichert unter: " + pictureFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
                 map = BitmapFactory.decodeFile(pictureFile.getAbsolutePath());
+                GrowingListViewUtils.setImageViewSize(picture);
                 picture.setImageBitmap(map);
             }
         }
