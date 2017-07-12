@@ -103,6 +103,7 @@ public class DishInformationActivity extends AppCompatActivity {
         ingredients = (ArrayList) dataSource.getAllIngredientsByDishID(thisID);
         final ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_ingredient, ingredients);
         list.setAdapter(adapter);
+        GrowingListViewUtils.adaptListViewSize(list);
 
         delete.setOnClickListener(new View.OnClickListener(){
             @Override

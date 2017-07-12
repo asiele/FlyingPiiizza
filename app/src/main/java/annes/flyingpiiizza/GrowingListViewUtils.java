@@ -30,6 +30,7 @@ public class GrowingListViewUtils {
 
     static public void setImageViewSize(ImageView imageView) {
         ViewGroup.LayoutParams params = imageView.getLayoutParams();
+        params.height = 250;
         imageView.setLayoutParams(params);
         imageView.requestLayout();
     }
