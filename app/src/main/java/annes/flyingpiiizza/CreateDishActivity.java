@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.view.ViewGroup;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -160,6 +161,7 @@ public class CreateDishActivity extends AppCompatActivity {
         final ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_ingredient, ingredientList);
         list=(ListView)findViewById(R.id.listOfIngredientNames);
         list.setAdapter(adapter);
+        GrowingListViewUtils.adaptListViewSize(list);
 
         okButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -168,6 +170,7 @@ public class CreateDishActivity extends AppCompatActivity {
                     ingredientList.add(ingredientNameField.getText().toString());
                     ingredientNameField.setText("");
                     list.invalidateViews();
+                    GrowingListViewUtils.adaptListViewSize(list);
                 }
             }
         });
@@ -178,6 +181,7 @@ public class CreateDishActivity extends AppCompatActivity {
                 ingredientList.clear();
                 ingredientNameField.setText("");
                 list.invalidateViews();
+                GrowingListViewUtils.adaptListViewSize(list);
             }
         });
 
